@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.dao.AuthorityMapper">
+  <resultMap id="BaseResultMap" type="com.office.entity.Authority">
+    <id column="authority _id" jdbcType="INTEGER" property="authorityId" />
+    <result column="authority_emp" jdbcType="INTEGER" property="authorityEmp" />
+    <result column="authority_dept" jdbcType="INTEGER" property="authorityDept" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    "authority _id", authority_emp, authority_dept
+  </sql>
+  <select id="selectByExample" parameterType="com.office.entity.AuthorityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from authority
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExamplePage" parameterType="com.office.entity.AuthorityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from authority
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+     limit #{start},#{end}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from authority
+    where "authority _id" = #{authorityId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from authority
+    where "authority _id" = #{authorityId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.office.entity.AuthorityExample">
+    delete from authority
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.office.entity.Authority">
+    insert into authority ("authority _id", authority_emp, authority_dept
+      )
+    values (#{authorityId,jdbcType=INTEGER}, #{authorityEmp,jdbcType=INTEGER}, #{authorityDept,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.office.entity.Authority">
+    insert into authority
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="authorityId != null">
+        "authority _id",
+      </if>
+      <if test="authorityEmp != null">
+        authority_emp,
+      </if>
+      <if test="authorityDept != null">
+        authority_dept,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="authorityId != null">
+        #{authorityId,jdbcType=INTEGER},
+      </if>
+      <if test="authorityEmp != null">
+        #{authorityEmp,jdbcType=INTEGER},
+      </if>
+      <if test="authorityDept != null">
+        #{authorityDept,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.office.entity.AuthorityExample" resultType="java.lang.Long">
+    select count(*) from authority
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update authority
+    <set>
+      <if test="record.authorityId != null">
+        "authority _id" = #{record.authorityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.authorityEmp != null">
+        authority_emp = #{record.authorityEmp,jdbcType=INTEGER},
+      </if>
+      <if test="record.authorityDept != null">
+        authority_dept = #{record.authorityDept,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update authority
+    set "authority _id" = #{record.authorityId,jdbcType=INTEGER},
+      authority_emp = #{record.authorityEmp,jdbcType=INTEGER},
+      authority_dept = #{record.authorityDept,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.office.entity.Authority">
+    update authority
+    <set>
+      <if test="authorityEmp != null">
+        authority_emp = #{authorityEmp,jdbcType=INTEGER},
+      </if>
+      <if test="authorityDept != null">
+        authority_dept = #{authorityDept,jdbcType=INTEGER},
+      </if>
+    </set>
+    where "authority _id" = #{authorityId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.office.entity.Authority">
+    update authority
+    set authority_emp = #{authorityEmp,jdbcType=INTEGER},
+      authority_dept = #{authorityDept,jdbcType=INTEGER}
+    where "authority _id" = #{authorityId,jdbcType=INTEGER}
+  </update>
+</mapper>

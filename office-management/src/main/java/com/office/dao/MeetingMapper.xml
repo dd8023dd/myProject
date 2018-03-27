@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.dao.MeetingMapper">
+  <resultMap id="BaseResultMap" type="com.office.entity.Meeting">
+    <id column="meeting_id" jdbcType="INTEGER" property="meetingId" />
+    <result column="meeting_name" jdbcType="VARCHAR" property="meetingName" />
+    <result column="meeting_room_id" jdbcType="INTEGER" property="meetingRoomId" />
+    <result column="meeting_emp_id" jdbcType="VARCHAR" property="meetingEmpId" />
+    <result column="meeting_time_start" jdbcType="TIMESTAMP" property="meetingTimeStart" />
+    <result column="booking_time" jdbcType="INTEGER" property="bookingTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    meeting_id, meeting_name, meeting_room_id, meeting_emp_id, meeting_time_start, booking_time
+  </sql>
+  <select id="selectByExample" parameterType="com.office.entity.MeetingExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from meeting
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExamplePage" parameterType="com.office.entity.MeetingExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from meeting
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+     limit #{start},#{end}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from meeting
+    where meeting_id = #{meetingId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from meeting
+    where meeting_id = #{meetingId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.office.entity.MeetingExample">
+    delete from meeting
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.office.entity.Meeting">
+    <selectKey keyProperty="meetingId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into meeting (meeting_id, meeting_name, meeting_room_id, 
+      meeting_emp_id, meeting_time_start, booking_time
+      )
+    values (#{meetingId,jdbcType=INTEGER}, #{meetingName,jdbcType=VARCHAR}, #{meetingRoomId,jdbcType=INTEGER}, 
+      #{meetingEmpId,jdbcType=VARCHAR}, #{meetingTimeStart,jdbcType=TIMESTAMP}, #{bookingTime,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.office.entity.Meeting">
+    <selectKey keyProperty="meetingId" order="BEFORE" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into meeting
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      meeting_id,
+      <if test="meetingName != null">
+        meeting_name,
+      </if>
+      <if test="meetingRoomId != null">
+        meeting_room_id,
+      </if>
+      <if test="meetingEmpId != null">
+        meeting_emp_id,
+      </if>
+      <if test="meetingTimeStart != null">
+        meeting_time_start,
+      </if>
+      <if test="bookingTime != null">
+        booking_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{meetingId,jdbcType=INTEGER},
+      <if test="meetingName != null">
+        #{meetingName,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingRoomId != null">
+        #{meetingRoomId,jdbcType=INTEGER},
+      </if>
+      <if test="meetingEmpId != null">
+        #{meetingEmpId,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingTimeStart != null">
+        #{meetingTimeStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bookingTime != null">
+        #{bookingTime,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.office.entity.MeetingExample" resultType="java.lang.Long">
+    select count(*) from meeting
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update meeting
+    <set>
+      <if test="record.meetingId != null">
+        meeting_id = #{record.meetingId,jdbcType=INTEGER},
+      </if>
+      <if test="record.meetingName != null">
+        meeting_name = #{record.meetingName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.meetingRoomId != null">
+        meeting_room_id = #{record.meetingRoomId,jdbcType=INTEGER},
+      </if>
+      <if test="record.meetingEmpId != null">
+        meeting_emp_id = #{record.meetingEmpId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.meetingTimeStart != null">
+        meeting_time_start = #{record.meetingTimeStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.bookingTime != null">
+        booking_time = #{record.bookingTime,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update meeting
+    set meeting_id = #{record.meetingId,jdbcType=INTEGER},
+      meeting_name = #{record.meetingName,jdbcType=VARCHAR},
+      meeting_room_id = #{record.meetingRoomId,jdbcType=INTEGER},
+      meeting_emp_id = #{record.meetingEmpId,jdbcType=VARCHAR},
+      meeting_time_start = #{record.meetingTimeStart,jdbcType=TIMESTAMP},
+      booking_time = #{record.bookingTime,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.office.entity.Meeting">
+    update meeting
+    <set>
+      <if test="meetingName != null">
+        meeting_name = #{meetingName,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingRoomId != null">
+        meeting_room_id = #{meetingRoomId,jdbcType=INTEGER},
+      </if>
+      <if test="meetingEmpId != null">
+        meeting_emp_id = #{meetingEmpId,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingTimeStart != null">
+        meeting_time_start = #{meetingTimeStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bookingTime != null">
+        booking_time = #{bookingTime,jdbcType=INTEGER},
+      </if>
+    </set>
+    where meeting_id = #{meetingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.office.entity.Meeting">
+    update meeting
+    set meeting_name = #{meetingName,jdbcType=VARCHAR},
+      meeting_room_id = #{meetingRoomId,jdbcType=INTEGER},
+      meeting_emp_id = #{meetingEmpId,jdbcType=VARCHAR},
+      meeting_time_start = #{meetingTimeStart,jdbcType=TIMESTAMP},
+      booking_time = #{bookingTime,jdbcType=INTEGER}
+    where meeting_id = #{meetingId,jdbcType=INTEGER}
+  </update>
+</mapper>

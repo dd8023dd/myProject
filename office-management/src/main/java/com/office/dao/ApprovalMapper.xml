@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.dao.ApprovalMapper">
+  <resultMap id="BaseResultMap" type="com.office.entity.Approval">
+    <id column="approval_id" jdbcType="INTEGER" property="approvalId" />
+    <result column="approval_type" jdbcType="VARCHAR" property="approvalType" />
+    <result column="approval_level" jdbcType="INTEGER" property="approvalLevel" />
+    <result column="approval_status" jdbcType="INTEGER" property="approvalStatus" />
+    <result column="approval_no" jdbcType="CHAR" property="approvalNo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    approval_id, approval_type, approval_level, approval_status, approval_no
+  </sql>
+  <select id="selectByExample" parameterType="com.office.entity.ApprovalExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from approvals
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExamplePage" parameterType="com.office.entity.ApprovalExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from approvals
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+     limit #{start},#{end}
+  </select>
+  <select id="selectByApprovalNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+  select from approvals where approval_no = #{_parameter,jdbcType=CHAR}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from approvals
+    where approval_id = #{approvalId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from approvals
+    where approval_id = #{approvalId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.office.entity.ApprovalExample">
+    delete from approvals
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.office.entity.Approval">
+    <selectKey keyProperty="approvalId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into approvals (approval_id, approval_type, approval_level, 
+      approval_status, approval_no)
+    values (#{approvalId,jdbcType=INTEGER}, #{approvalType,jdbcType=VARCHAR}, #{approvalLevel,jdbcType=INTEGER}, 
+      #{approvalStatus,jdbcType=INTEGER}, #{approvalNo,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.office.entity.Approval">
+    <selectKey keyProperty="approvalId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into approvals
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      approval_id,
+      <if test="approvalType != null">
+        approval_type,
+      </if>
+      <if test="approvalLevel != null">
+        approval_level,
+      </if>
+      <if test="approvalStatus != null">
+        approval_status,
+      </if>
+      <if test="approvalNo != null">
+        approval_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{approvalId,jdbcType=INTEGER},
+      <if test="approvalType != null">
+        #{approvalType,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalLevel != null">
+        #{approvalLevel,jdbcType=INTEGER},
+      </if>
+      <if test="approvalStatus != null">
+        #{approvalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="approvalNo != null">
+        #{approvalNo,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.office.entity.ApprovalExample" resultType="java.lang.Long">
+    select count(*) from approvals
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update approvals
+    <set>
+      <if test="record.approvalId != null">
+        approval_id = #{record.approvalId,jdbcType=INTEGER},
+      </if>
+      <if test="record.approvalType != null">
+        approval_type = #{record.approvalType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.approvalLevel != null">
+        approval_level = #{record.approvalLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.approvalStatus != null">
+        approval_status = #{record.approvalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.approvalNo != null">
+        approval_no = #{record.approvalNo,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update approvals
+    set approval_id = #{record.approvalId,jdbcType=INTEGER},
+      approval_type = #{record.approvalType,jdbcType=VARCHAR},
+      approval_level = #{record.approvalLevel,jdbcType=INTEGER},
+      approval_status = #{record.approvalStatus,jdbcType=INTEGER},
+      approval_no = #{record.approvalNo,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.office.entity.Approval">
+    update approvals
+    <set>
+      <if test="approvalType != null">
+        approval_type = #{approvalType,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalLevel != null">
+        approval_level = #{approvalLevel,jdbcType=INTEGER},
+      </if>
+      <if test="approvalStatus != null">
+        approval_status = #{approvalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="approvalNo != null">
+        approval_no = #{approvalNo,jdbcType=CHAR},
+      </if>
+    </set>
+    where approval_id = #{approvalId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.office.entity.Approval">
+    update approvals
+    set approval_type = #{approvalType,jdbcType=VARCHAR},
+      approval_level = #{approvalLevel,jdbcType=INTEGER},
+      approval_status = #{approvalStatus,jdbcType=INTEGER},
+      approval_no = #{approvalNo,jdbcType=CHAR}
+    where approval_id = #{approvalId,jdbcType=INTEGER}
+  </update>
+</mapper>

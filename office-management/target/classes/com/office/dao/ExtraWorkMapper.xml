@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.dao.ExtraWorkMapper">
+  <resultMap id="BaseResultMap" type="com.office.entity.ExtraWork">
+    <id column="extra_work_id" jdbcType="INTEGER" property="extraWorkId" />
+    <result column="emp_id" jdbcType="INTEGER" property="empId" />
+    <result column="extra_work_time" jdbcType="CHAR" property="extraWorkTime" />
+    <result column="is_holidy" jdbcType="INTEGER" property="isHolidy" />
+    <result column="approval_id" jdbcType="INTEGER" property="approvalId" />
+    <result column="time" jdbcType="CHAR" property="time" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    extra_work_id, emp_id, extra_work_time, is_holidy, approval_id, time
+  </sql>
+  <select id="selectByExample" parameterType="com.office.entity.ExtraWorkExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from extra_work
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExamplePage" parameterType="com.office.entity.ExtraWorkExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from extra_work
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+     limit #{start},#{end}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from extra_work
+    where extra_work_id = #{extraWorkId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from extra_work
+    where extra_work_id = #{extraWorkId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.office.entity.ExtraWorkExample">
+    delete from extra_work
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.office.entity.ExtraWork">
+    <selectKey keyProperty="extraWorkId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into extra_work (extra_work_id, emp_id, extra_work_time, 
+      is_holidy, approval_id, time
+      )
+    values (#{extraWorkId,jdbcType=INTEGER}, #{empId,jdbcType=INTEGER}, #{extraWorkTime,jdbcType=CHAR}, 
+      #{isHolidy,jdbcType=INTEGER}, #{approvalId,jdbcType=INTEGER}, #{time,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.office.entity.ExtraWork">
+    <selectKey keyProperty="extraWorkId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into extra_work
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      extra_work_id,
+      <if test="empId != null">
+        emp_id,
+      </if>
+      <if test="extraWorkTime != null">
+        extra_work_time,
+      </if>
+      <if test="isHolidy != null">
+        is_holidy,
+      </if>
+      <if test="approvalId != null">
+        approval_id,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{extraWorkId,jdbcType=INTEGER},
+      <if test="empId != null">
+        #{empId,jdbcType=INTEGER},
+      </if>
+      <if test="extraWorkTime != null">
+        #{extraWorkTime,jdbcType=CHAR},
+      </if>
+      <if test="isHolidy != null">
+        #{isHolidy,jdbcType=INTEGER},
+      </if>
+      <if test="approvalId != null">
+        #{approvalId,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.office.entity.ExtraWorkExample" resultType="java.lang.Long">
+    select count(*) from extra_work
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update extra_work
+    <set>
+      <if test="record.extraWorkId != null">
+        extra_work_id = #{record.extraWorkId,jdbcType=INTEGER},
+      </if>
+      <if test="record.empId != null">
+        emp_id = #{record.empId,jdbcType=INTEGER},
+      </if>
+      <if test="record.extraWorkTime != null">
+        extra_work_time = #{record.extraWorkTime,jdbcType=CHAR},
+      </if>
+      <if test="record.isHolidy != null">
+        is_holidy = #{record.isHolidy,jdbcType=INTEGER},
+      </if>
+      <if test="record.approvalId != null">
+        approval_id = #{record.approvalId,jdbcType=INTEGER},
+      </if>
+      <if test="record.time != null">
+        time = #{record.time,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update extra_work
+    set extra_work_id = #{record.extraWorkId,jdbcType=INTEGER},
+      emp_id = #{record.empId,jdbcType=INTEGER},
+      extra_work_time = #{record.extraWorkTime,jdbcType=CHAR},
+      is_holidy = #{record.isHolidy,jdbcType=INTEGER},
+      approval_id = #{record.approvalId,jdbcType=INTEGER},
+      time = #{record.time,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.office.entity.ExtraWork">
+    update extra_work
+    <set>
+      <if test="empId != null">
+        emp_id = #{empId,jdbcType=INTEGER},
+      </if>
+      <if test="extraWorkTime != null">
+        extra_work_time = #{extraWorkTime,jdbcType=CHAR},
+      </if>
+      <if test="isHolidy != null">
+        is_holidy = #{isHolidy,jdbcType=INTEGER},
+      </if>
+      <if test="approvalId != null">
+        approval_id = #{approvalId,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=CHAR},
+      </if>
+    </set>
+    where extra_work_id = #{extraWorkId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.office.entity.ExtraWork">
+    update extra_work
+    set emp_id = #{empId,jdbcType=INTEGER},
+      extra_work_time = #{extraWorkTime,jdbcType=CHAR},
+      is_holidy = #{isHolidy,jdbcType=INTEGER},
+      approval_id = #{approvalId,jdbcType=INTEGER},
+      time = #{time,jdbcType=CHAR}
+    where extra_work_id = #{extraWorkId,jdbcType=INTEGER}
+  </update>
+</mapper>

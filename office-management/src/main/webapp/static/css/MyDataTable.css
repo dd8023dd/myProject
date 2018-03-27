@@ -1,0 +1,10 @@
+@charset "UTF-8";
+th{
+	text-align:center;
+	}
+td{
+	text-align:center;
+}
+.modal-dialog{
+	width:480px;
+}

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.dao.AskToLeaveMapper">
+  <resultMap id="BaseResultMap" type="com.office.entity.AskToLeave">
+    <id column="leave_id" jdbcType="INTEGER" property="leaveId" />
+    <result column="emp_id" jdbcType="INTEGER" property="empId" />
+    <result column="leave_time_start" jdbcType="DATE" property="leaveTimeStart" />
+    <result column="leave_time" jdbcType="INTEGER" property="leaveTime" />
+    <result column="leave_evidence" jdbcType="VARCHAR" property="leaveEvidence" />
+    <result column="leave_reason" jdbcType="VARCHAR" property="leaveReason" />
+    <result column="leave_time_end" jdbcType="DATE" property="leaveTimeEnd" />
+    <result column="approval_id" jdbcType="INTEGER" property="approvalId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    leave_id, emp_id, leave_time_start, leave_time, leave_evidence, leave_reason, leave_time_end, 
+    approval_id
+  </sql>
+  <select id="selectByExample" parameterType="com.office.entity.AskToLeaveExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ask_to_leave
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExamplePage" parameterType="com.office.entity.AskToLeaveExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ask_to_leave
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if> 
+    limit #{start},#{end}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ask_to_leave
+    where leave_id = #{leaveId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ask_to_leave
+    where leave_id = #{leaveId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.office.entity.AskToLeaveExample">
+    delete from ask_to_leave
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.office.entity.AskToLeave">
+    <selectKey keyProperty="leaveId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ask_to_leave (leave_id, emp_id, leave_time_start, 
+      leave_time, leave_evidence, leave_reason, 
+      leave_time_end, approval_id)
+    values (#{leaveId,jdbcType=INTEGER}, #{empId,jdbcType=INTEGER}, #{leaveTimeStart,jdbcType=DATE}, 
+      #{leaveTime,jdbcType=INTEGER}, #{leaveEvidence,jdbcType=VARCHAR}, #{leaveReason,jdbcType=VARCHAR}, 
+      #{leaveTimeEnd,jdbcType=DATE}, #{approvalId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.office.entity.AskToLeave">
+    <selectKey keyProperty="leaveId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ask_to_leave
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      leave_id,
+      <if test="empId != null">
+        emp_id,
+      </if>
+      <if test="leaveTimeStart != null">
+        leave_time_start,
+      </if>
+      <if test="leaveTime != null">
+        leave_time,
+      </if>
+      <if test="leaveEvidence != null">
+        leave_evidence,
+      </if>
+      <if test="leaveReason != null">
+        leave_reason,
+      </if>
+      <if test="leaveTimeEnd != null">
+        leave_time_end,
+      </if>
+      <if test="approvalId != null">
+        approval_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{leaveId,jdbcType=INTEGER},
+      <if test="empId != null">
+        #{empId,jdbcType=INTEGER},
+      </if>
+      <if test="leaveTimeStart != null">
+        #{leaveTimeStart,jdbcType=DATE},
+      </if>
+      <if test="leaveTime != null">
+        #{leaveTime,jdbcType=INTEGER},
+      </if>
+      <if test="leaveEvidence != null">
+        #{leaveEvidence,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveReason != null">
+        #{leaveReason,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveTimeEnd != null">
+        #{leaveTimeEnd,jdbcType=DATE},
+      </if>
+      <if test="approvalId != null">
+        #{approvalId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.office.entity.AskToLeaveExample" resultType="java.lang.Long">
+    select count(*) from ask_to_leave
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ask_to_leave
+    <set>
+      <if test="record.leaveId != null">
+        leave_id = #{record.leaveId,jdbcType=INTEGER},
+      </if>
+      <if test="record.empId != null">
+        emp_id = #{record.empId,jdbcType=INTEGER},
+      </if>
+      <if test="record.leaveTimeStart != null">
+        leave_time_start = #{record.leaveTimeStart,jdbcType=DATE},
+      </if>
+      <if test="record.leaveTime != null">
+        leave_time = #{record.leaveTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.leaveEvidence != null">
+        leave_evidence = #{record.leaveEvidence,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leaveReason != null">
+        leave_reason = #{record.leaveReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leaveTimeEnd != null">
+        leave_time_end = #{record.leaveTimeEnd,jdbcType=DATE},
+      </if>
+      <if test="record.approvalId != null">
+        approval_id = #{record.approvalId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ask_to_leave
+    set leave_id = #{record.leaveId,jdbcType=INTEGER},
+      emp_id = #{record.empId,jdbcType=INTEGER},
+      leave_time_start = #{record.leaveTimeStart,jdbcType=DATE},
+      leave_time = #{record.leaveTime,jdbcType=INTEGER},
+      leave_evidence = #{record.leaveEvidence,jdbcType=VARCHAR},
+      leave_reason = #{record.leaveReason,jdbcType=VARCHAR},
+      leave_time_end = #{record.leaveTimeEnd,jdbcType=DATE},
+      approval_id = #{record.approvalId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.office.entity.AskToLeave">
+    update ask_to_leave
+    <set>
+      <if test="empId != null">
+        emp_id = #{empId,jdbcType=INTEGER},
+      </if>
+      <if test="leaveTimeStart != null">
+        leave_time_start = #{leaveTimeStart,jdbcType=DATE},
+      </if>
+      <if test="leaveTime != null">
+        leave_time = #{leaveTime,jdbcType=INTEGER},
+      </if>
+      <if test="leaveEvidence != null">
+        leave_evidence = #{leaveEvidence,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveReason != null">
+        leave_reason = #{leaveReason,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveTimeEnd != null">
+        leave_time_end = #{leaveTimeEnd,jdbcType=DATE},
+      </if>
+      <if test="approvalId != null">
+        approval_id = #{approvalId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where leave_id = #{leaveId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.office.entity.AskToLeave">
+    update ask_to_leave
+    set emp_id = #{empId,jdbcType=INTEGER},
+      leave_time_start = #{leaveTimeStart,jdbcType=DATE},
+      leave_time = #{leaveTime,jdbcType=INTEGER},
+      leave_evidence = #{leaveEvidence,jdbcType=VARCHAR},
+      leave_reason = #{leaveReason,jdbcType=VARCHAR},
+      leave_time_end = #{leaveTimeEnd,jdbcType=DATE},
+      approval_id = #{approvalId,jdbcType=INTEGER}
+    where leave_id = #{leaveId,jdbcType=INTEGER}
+  </update>
+</mapper>

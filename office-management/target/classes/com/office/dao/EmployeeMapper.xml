@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.dao.EmployeeMapper">
+  <resultMap id="BaseResultMap" type="com.office.entity.Employee">
+    <id column="emp_id" jdbcType="INTEGER" property="empId" />
+    <result column="emp_no" jdbcType="CHAR" property="empNo" />
+    <result column="emp_birth" jdbcType="DATE" property="empBirth" />
+    <result column="emp_hiredate" jdbcType="DATE" property="empHiredate" />
+    <result column="emp_name" jdbcType="CHAR" property="empName" />
+    <result column="emp_address" jdbcType="CHAR" property="empAddress" />
+    <result column="emp_depti" jdbcType="INTEGER" property="empDepti" />
+    <result column="emp_email" jdbcType="CHAR" property="empEmail" />
+    <result column="emp_phoneNum" jdbcType="CHAR" property="empPhonenum" />
+    <result column="emp_pos" jdbcType="INTEGER" property="empPos" />
+    <result column="emp_gender" jdbcType="INTEGER" property="empGender" />
+    <result column="b1" jdbcType="CHAR" property="b1" />
+    <result column="b2" jdbcType="CHAR" property="b2" />
+  </resultMap>
+  <resultMap id="BaseResultMapPage" type="com.office.entity.Employee">
+    <id column="emp_id" jdbcType="INTEGER" property="empId" />
+    <result column="emp_no" jdbcType="CHAR" property="empNo" />
+    <result column="emp_birth" jdbcType="DATE" property="empBirth" />
+    <result column="emp_hiredate" jdbcType="DATE" property="empHiredate" />
+    <result column="emp_name" jdbcType="CHAR" property="empName" />
+    <result column="emp_address" jdbcType="CHAR" property="empAddress" />
+    <result column="emp_depti" jdbcType="INTEGER" property="empDepti" />
+    <result column="emp_email" jdbcType="CHAR" property="empEmail" />
+    <result column="emp_phoneNum" jdbcType="CHAR" property="empPhonenum" />
+    <result column="emp_pos" jdbcType="INTEGER" property="empPos" />
+    <result column="emp_gender" jdbcType="INTEGER" property="empGender" />
+    <result column="b1" jdbcType="CHAR" property="b1" />
+    <result column="b2" jdbcType="CHAR" property="b2" />
+    <association property="dept" javaType="com.office.entity.Depts" column="emp_depti" select="com.office.dao.DeptsMapper.selectByPrimaryKey"></association>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    emp_id, emp_no, emp_birth, emp_hiredate, emp_name, emp_address, emp_depti, emp_email, 
+    emp_phoneNum, emp_pos, emp_gender, b1, b2
+  </sql>
+  <select id="selectByExample" parameterType="com.office.entity.EmployeeExample" resultMap="BaseResultMapPage">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from employees
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExamplePage" parameterType="com.office.entity.EmployeeExample" resultMap="BaseResultMapPage">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from employees
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    limit #{start},#{end}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from employees
+    where emp_id = #{empId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from employees
+    where emp_id = #{empId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.office.entity.EmployeeExample">
+    delete from employees
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.office.entity.Employee">
+    <selectKey keyProperty="empId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into employees (emp_id, emp_no, emp_birth, 
+      emp_hiredate, emp_name, emp_address, 
+      emp_depti, emp_email, emp_phoneNum, 
+      emp_pos, emp_gender, b1, 
+      b2)
+    values (#{empId,jdbcType=INTEGER}, #{empNo,jdbcType=CHAR}, #{empBirth,jdbcType=DATE}, 
+      #{empHiredate,jdbcType=DATE}, #{empName,jdbcType=CHAR}, #{empAddress,jdbcType=CHAR}, 
+      #{empDepti,jdbcType=INTEGER}, #{empEmail,jdbcType=CHAR}, #{empPhonenum,jdbcType=CHAR}, 
+      #{empPos,jdbcType=INTEGER}, #{empGender,jdbcType=INTEGER}, #{b1,jdbcType=CHAR}, 
+      #{b2,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.office.entity.Employee">
+    <selectKey keyProperty="empId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into employees
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      emp_id,
+      <if test="empNo != null">
+        emp_no,
+      </if>
+      <if test="empBirth != null">
+        emp_birth,
+      </if>
+      <if test="empHiredate != null">
+        emp_hiredate,
+      </if>
+      <if test="empName != null">
+        emp_name,
+      </if>
+      <if test="empAddress != null">
+        emp_address,
+      </if>
+      <if test="empDepti != null">
+        emp_depti,
+      </if>
+      <if test="empEmail != null">
+        emp_email,
+      </if>
+      <if test="empPhonenum != null">
+        emp_phoneNum,
+      </if>
+      <if test="empPos != null">
+        emp_pos,
+      </if>
+      <if test="empGender != null">
+        emp_gender,
+      </if>
+      <if test="b1 != null">
+        b1,
+      </if>
+      <if test="b2 != null">
+        b2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{empId,jdbcType=INTEGER},
+      <if test="empNo != null">
+        #{empNo,jdbcType=CHAR},
+      </if>
+      <if test="empBirth != null">
+        #{empBirth,jdbcType=DATE},
+      </if>
+      <if test="empHiredate != null">
+        #{empHiredate,jdbcType=DATE},
+      </if>
+      <if test="empName != null">
+        #{empName,jdbcType=CHAR},
+      </if>
+      <if test="empAddress != null">
+        #{empAddress,jdbcType=CHAR},
+      </if>
+      <if test="empDepti != null">
+        #{empDepti,jdbcType=INTEGER},
+      </if>
+      <if test="empEmail != null">
+        #{empEmail,jdbcType=CHAR},
+      </if>
+      <if test="empPhonenum != null">
+        #{empPhonenum,jdbcType=CHAR},
+      </if>
+      <if test="empPos != null">
+        #{empPos,jdbcType=INTEGER},
+      </if>
+      <if test="empGender != null">
+        #{empGender,jdbcType=INTEGER},
+      </if>
+      <if test="b1 != null">
+        #{b1,jdbcType=CHAR},
+      </if>
+      <if test="b2 != null">
+        #{b2,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.office.entity.EmployeeExample" resultType="java.lang.Long">
+    select count(*) from employees
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update employees
+    <set>
+      <if test="record.empId != null">
+        emp_id = #{record.empId,jdbcType=INTEGER},
+      </if>
+      <if test="record.empNo != null">
+        emp_no = #{record.empNo,jdbcType=CHAR},
+      </if>
+      <if test="record.empBirth != null">
+        emp_birth = #{record.empBirth,jdbcType=DATE},
+      </if>
+      <if test="record.empHiredate != null">
+        emp_hiredate = #{record.empHiredate,jdbcType=DATE},
+      </if>
+      <if test="record.empName != null">
+        emp_name = #{record.empName,jdbcType=CHAR},
+      </if>
+      <if test="record.empAddress != null">
+        emp_address = #{record.empAddress,jdbcType=CHAR},
+      </if>
+      <if test="record.empDepti != null">
+        emp_depti = #{record.empDepti,jdbcType=INTEGER},
+      </if>
+      <if test="record.empEmail != null">
+        emp_email = #{record.empEmail,jdbcType=CHAR},
+      </if>
+      <if test="record.empPhonenum != null">
+        emp_phoneNum = #{record.empPhonenum,jdbcType=CHAR},
+      </if>
+      <if test="record.empPos != null">
+        emp_pos = #{record.empPos,jdbcType=INTEGER},
+      </if>
+      <if test="record.empGender != null">
+        emp_gender = #{record.empGender,jdbcType=INTEGER},
+      </if>
+      <if test="record.b1 != null">
+        b1 = #{record.b1,jdbcType=CHAR},
+      </if>
+      <if test="record.b2 != null">
+        b2 = #{record.b2,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update employees
+    set emp_id = #{record.empId,jdbcType=INTEGER},
+      emp_no = #{record.empNo,jdbcType=CHAR},
+      emp_birth = #{record.empBirth,jdbcType=DATE},
+      emp_hiredate = #{record.empHiredate,jdbcType=DATE},
+      emp_name = #{record.empName,jdbcType=CHAR},
+      emp_address = #{record.empAddress,jdbcType=CHAR},
+      emp_depti = #{record.empDepti,jdbcType=INTEGER},
+      emp_email = #{record.empEmail,jdbcType=CHAR},
+      emp_phoneNum = #{record.empPhonenum,jdbcType=CHAR},
+      emp_pos = #{record.empPos,jdbcType=INTEGER},
+      emp_gender = #{record.empGender,jdbcType=INTEGER},
+      b1 = #{record.b1,jdbcType=CHAR},
+      b2 = #{record.b2,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.office.entity.Employee">
+    update employees
+    <set>
+      <if test="empNo != null">
+        emp_no = #{empNo,jdbcType=CHAR},
+      </if>
+      <if test="empBirth != null">
+        emp_birth = #{empBirth,jdbcType=DATE},
+      </if>
+      <if test="empHiredate != null">
+        emp_hiredate = #{empHiredate,jdbcType=DATE},
+      </if>
+      <if test="empName != null">
+        emp_name = #{empName,jdbcType=CHAR},
+      </if>
+      <if test="empAddress != null">
+        emp_address = #{empAddress,jdbcType=CHAR},
+      </if>
+      <if test="empDepti != null">
+        emp_depti = #{empDepti,jdbcType=INTEGER},
+      </if>
+      <if test="empEmail != null">
+        emp_email = #{empEmail,jdbcType=CHAR},
+      </if>
+      <if test="empPhonenum != null">
+        emp_phoneNum = #{empPhonenum,jdbcType=CHAR},
+      </if>
+      <if test="empPos != null">
+        emp_pos = #{empPos,jdbcType=INTEGER},
+      </if>
+      <if test="empGender != null">
+        emp_gender = #{empGender,jdbcType=INTEGER},
+      </if>
+      <if test="b1 != null">
+        b1 = #{b1,jdbcType=CHAR},
+      </if>
+      <if test="b2 != null">
+        b2 = #{b2,jdbcType=CHAR},
+      </if>
+    </set>
+    where emp_id = #{empId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.office.entity.Employee">
+    update employees
+    set emp_no = #{empNo,jdbcType=CHAR},
+      emp_birth = #{empBirth,jdbcType=DATE},
+      emp_hiredate = #{empHiredate,jdbcType=DATE},
+      emp_name = #{empName,jdbcType=CHAR},
+      emp_address = #{empAddress,jdbcType=CHAR},
+      emp_depti = #{empDepti,jdbcType=INTEGER},
+      emp_email = #{empEmail,jdbcType=CHAR},
+      emp_phoneNum = #{empPhonenum,jdbcType=CHAR},
+      emp_pos = #{empPos,jdbcType=INTEGER},
+      emp_gender = #{empGender,jdbcType=INTEGER},
+      b1 = #{b1,jdbcType=CHAR},
+      b2 = #{b2,jdbcType=CHAR}
+    where emp_id = #{empId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.dao.CheckTimeMapper">
+  <resultMap id="BaseResultMap" type="com.office.entity.CheckTime">
+    <id column="check_time_id" jdbcType="INTEGER" property="checkTimeId" />
+    <result column="check_time_data" jdbcType="VARCHAR" property="checkTimeData" />
+    <result column="check_time_empid" jdbcType="INTEGER" property="checkTimeEmpid" />
+    <result column="check_time_out" jdbcType="INTEGER" property="checkTimeOut" />
+    <result column="check_time_first" jdbcType="VARCHAR" property="checkTimeFirst" />
+    <result column="check_time_leave" jdbcType="VARCHAR" property="checkTimeLeave" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    check_time_id, check_time_data, check_time_empid, check_time_out, check_time_first, 
+    check_time_leave
+  </sql>
+  <select id="selectByExample" parameterType="com.office.entity.CheckTimeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from check_time
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExamplePage" parameterType="com.office.entity.CheckTimeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from check_time
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+     limit #{start},#{end}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from check_time
+    where check_time_id = #{checkTimeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from check_time
+    where check_time_id = #{checkTimeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.office.entity.CheckTimeExample">
+    delete from check_time
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.office.entity.CheckTime">
+    <selectKey keyProperty="checkTimeId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into check_time (check_time_data, check_time_empid, check_time_out, 
+      check_time_first, check_time_leave)
+    values (#{checkTimeData,jdbcType=VARCHAR}, #{checkTimeEmpid,jdbcType=INTEGER}, #{checkTimeOut,jdbcType=INTEGER}, 
+      #{checkTimeFirst,jdbcType=VARCHAR}, #{checkTimeLeave,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.office.entity.CheckTime">
+    <selectKey keyProperty="checkTimeId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into check_time
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="checkTimeData != null">
+        check_time_data,
+      </if>
+      <if test="checkTimeEmpid != null">
+        check_time_empid,
+      </if>
+      <if test="checkTimeOut != null">
+        check_time_out,
+      </if>
+      <if test="checkTimeFirst != null">
+        check_time_first,
+      </if>
+      <if test="checkTimeLeave != null">
+        check_time_leave,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="checkTimeData != null">
+        #{checkTimeData,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTimeEmpid != null">
+        #{checkTimeEmpid,jdbcType=INTEGER},
+      </if>
+      <if test="checkTimeOut != null">
+        #{checkTimeOut,jdbcType=INTEGER},
+      </if>
+      <if test="checkTimeFirst != null">
+        #{checkTimeFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTimeLeave != null">
+        #{checkTimeLeave,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.office.entity.CheckTimeExample" resultType="java.lang.Long">
+    select count(*) from check_time
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update check_time
+    <set>
+      <if test="record.checkTimeId != null">
+        check_time_id = #{record.checkTimeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.checkTimeData != null">
+        check_time_data = #{record.checkTimeData,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkTimeEmpid != null">
+        check_time_empid = #{record.checkTimeEmpid,jdbcType=INTEGER},
+      </if>
+      <if test="record.checkTimeOut != null">
+        check_time_out = #{record.checkTimeOut,jdbcType=INTEGER},
+      </if>
+      <if test="record.checkTimeFirst != null">
+        check_time_first = #{record.checkTimeFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkTimeLeave != null">
+        check_time_leave = #{record.checkTimeLeave,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update check_time
+    set check_time_id = #{record.checkTimeId,jdbcType=INTEGER},
+      check_time_data = #{record.checkTimeData,jdbcType=VARCHAR},
+      check_time_empid = #{record.checkTimeEmpid,jdbcType=INTEGER},
+      check_time_out = #{record.checkTimeOut,jdbcType=INTEGER},
+      check_time_first = #{record.checkTimeFirst,jdbcType=VARCHAR},
+      check_time_leave = #{record.checkTimeLeave,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.office.entity.CheckTime">
+    update check_time
+    <set>
+      <if test="checkTimeData != null">
+        check_time_data = #{checkTimeData,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTimeEmpid != null">
+        check_time_empid = #{checkTimeEmpid,jdbcType=INTEGER},
+      </if>
+      <if test="checkTimeOut != null">
+        check_time_out = #{checkTimeOut,jdbcType=INTEGER},
+      </if>
+      <if test="checkTimeFirst != null">
+        check_time_first = #{checkTimeFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTimeLeave != null">
+        check_time_leave = #{checkTimeLeave,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where check_time_id = #{checkTimeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.office.entity.CheckTime">
+    update check_time
+    set check_time_data = #{checkTimeData,jdbcType=VARCHAR},
+      check_time_empid = #{checkTimeEmpid,jdbcType=INTEGER},
+      check_time_out = #{checkTimeOut,jdbcType=INTEGER},
+      check_time_first = #{checkTimeFirst,jdbcType=VARCHAR},
+      check_time_leave = #{checkTimeLeave,jdbcType=VARCHAR}
+    where check_time_id = #{checkTimeId,jdbcType=INTEGER}
+  </update>
+</mapper>
