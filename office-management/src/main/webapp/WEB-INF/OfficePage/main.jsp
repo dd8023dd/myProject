@@ -21,7 +21,25 @@
 	padding: 5px 0;
 }
 </style>
+	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/bootstrap/js/jquery.js"></script>
 </head>
+<script type="text/javascript">
+$(document).ready(function(){
+	isBirthday();
+})
+function isBirthday(){
+	$.ajax({
+		url:"${pageContext.request.contextPath}/isBirthday.do",
+		type:"post",
+		dataType:"json",
+		success:function(result) {
+			if(result.tag == 1){
+				$("#isb").html(result.message);
+			}
+		}
+	})
+}
+</script>
 <body>
 	<div class="admin-main">
 		<blockquote class="layui-elem-quote">
@@ -29,6 +47,7 @@
 			Office-Managerment-System
 			<p>前端设计基于LayUI实现</p>
 			<br/>
+			<p id="isb" style="font-size:20px;"></p><!-- 这里放动态祝福等等啦 = = 例如生日什么的 = = -->
 			<p style="color: #2E8DED;">--这里可以放公司简介--</p>
 			<!--<p style="color: #01AAED;">子窗体弹出对话框编辑表单的一些建议：如果是处理表单的，建议在子窗口弹出。把背景设置为无，如果只是提示信息，可以在父窗口弹出。</p>-->
 		</blockquote>

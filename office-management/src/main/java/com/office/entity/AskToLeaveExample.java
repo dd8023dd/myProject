@@ -1,11 +1,9 @@
 package com.office.entity;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
-public class AskToLeaveExample extends BaseExample{
+public class AskToLeaveExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -104,32 +102,6 @@ public class AskToLeaveExample extends BaseExample{
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                dateList.add(new java.sql.Date(iter.next().getTime()));
-            }
-            addCriterion(condition, dateList, property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andLeaveIdIsNull() {
@@ -262,53 +234,63 @@ public class AskToLeaveExample extends BaseExample{
             return (Criteria) this;
         }
 
-        public Criteria andLeaveTimeStartEqualTo(Date value) {
-            addCriterionForJDBCDate("leave_time_start =", value, "leaveTimeStart");
+        public Criteria andLeaveTimeStartEqualTo(String value) {
+            addCriterion("leave_time_start =", value, "leaveTimeStart");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveTimeStartNotEqualTo(Date value) {
-            addCriterionForJDBCDate("leave_time_start <>", value, "leaveTimeStart");
+        public Criteria andLeaveTimeStartNotEqualTo(String value) {
+            addCriterion("leave_time_start <>", value, "leaveTimeStart");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveTimeStartGreaterThan(Date value) {
-            addCriterionForJDBCDate("leave_time_start >", value, "leaveTimeStart");
+        public Criteria andLeaveTimeStartGreaterThan(String value) {
+            addCriterion("leave_time_start >", value, "leaveTimeStart");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveTimeStartGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("leave_time_start >=", value, "leaveTimeStart");
+        public Criteria andLeaveTimeStartGreaterThanOrEqualTo(String value) {
+            addCriterion("leave_time_start >=", value, "leaveTimeStart");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveTimeStartLessThan(Date value) {
-            addCriterionForJDBCDate("leave_time_start <", value, "leaveTimeStart");
+        public Criteria andLeaveTimeStartLessThan(String value) {
+            addCriterion("leave_time_start <", value, "leaveTimeStart");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveTimeStartLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("leave_time_start <=", value, "leaveTimeStart");
+        public Criteria andLeaveTimeStartLessThanOrEqualTo(String value) {
+            addCriterion("leave_time_start <=", value, "leaveTimeStart");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveTimeStartIn(List<Date> values) {
-            addCriterionForJDBCDate("leave_time_start in", values, "leaveTimeStart");
+        public Criteria andLeaveTimeStartLike(String value) {
+            addCriterion("leave_time_start like", value, "leaveTimeStart");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveTimeStartNotIn(List<Date> values) {
-            addCriterionForJDBCDate("leave_time_start not in", values, "leaveTimeStart");
+        public Criteria andLeaveTimeStartNotLike(String value) {
+            addCriterion("leave_time_start not like", value, "leaveTimeStart");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveTimeStartBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("leave_time_start between", value1, value2, "leaveTimeStart");
+        public Criteria andLeaveTimeStartIn(List<String> values) {
+            addCriterion("leave_time_start in", values, "leaveTimeStart");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveTimeStartNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("leave_time_start not between", value1, value2, "leaveTimeStart");
+        public Criteria andLeaveTimeStartNotIn(List<String> values) {
+            addCriterion("leave_time_start not in", values, "leaveTimeStart");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveTimeStartBetween(String value1, String value2) {
+            addCriterion("leave_time_start between", value1, value2, "leaveTimeStart");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveTimeStartNotBetween(String value1, String value2) {
+            addCriterion("leave_time_start not between", value1, value2, "leaveTimeStart");
             return (Criteria) this;
         }
 
@@ -522,53 +504,63 @@ public class AskToLeaveExample extends BaseExample{
             return (Criteria) this;
         }
 
-        public Criteria andLeaveTimeEndEqualTo(Date value) {
-            addCriterionForJDBCDate("leave_time_end =", value, "leaveTimeEnd");
+        public Criteria andLeaveTimeEndEqualTo(String value) {
+            addCriterion("leave_time_end =", value, "leaveTimeEnd");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveTimeEndNotEqualTo(Date value) {
-            addCriterionForJDBCDate("leave_time_end <>", value, "leaveTimeEnd");
+        public Criteria andLeaveTimeEndNotEqualTo(String value) {
+            addCriterion("leave_time_end <>", value, "leaveTimeEnd");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveTimeEndGreaterThan(Date value) {
-            addCriterionForJDBCDate("leave_time_end >", value, "leaveTimeEnd");
+        public Criteria andLeaveTimeEndGreaterThan(String value) {
+            addCriterion("leave_time_end >", value, "leaveTimeEnd");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveTimeEndGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("leave_time_end >=", value, "leaveTimeEnd");
+        public Criteria andLeaveTimeEndGreaterThanOrEqualTo(String value) {
+            addCriterion("leave_time_end >=", value, "leaveTimeEnd");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveTimeEndLessThan(Date value) {
-            addCriterionForJDBCDate("leave_time_end <", value, "leaveTimeEnd");
+        public Criteria andLeaveTimeEndLessThan(String value) {
+            addCriterion("leave_time_end <", value, "leaveTimeEnd");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveTimeEndLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("leave_time_end <=", value, "leaveTimeEnd");
+        public Criteria andLeaveTimeEndLessThanOrEqualTo(String value) {
+            addCriterion("leave_time_end <=", value, "leaveTimeEnd");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveTimeEndIn(List<Date> values) {
-            addCriterionForJDBCDate("leave_time_end in", values, "leaveTimeEnd");
+        public Criteria andLeaveTimeEndLike(String value) {
+            addCriterion("leave_time_end like", value, "leaveTimeEnd");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveTimeEndNotIn(List<Date> values) {
-            addCriterionForJDBCDate("leave_time_end not in", values, "leaveTimeEnd");
+        public Criteria andLeaveTimeEndNotLike(String value) {
+            addCriterion("leave_time_end not like", value, "leaveTimeEnd");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveTimeEndBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("leave_time_end between", value1, value2, "leaveTimeEnd");
+        public Criteria andLeaveTimeEndIn(List<String> values) {
+            addCriterion("leave_time_end in", values, "leaveTimeEnd");
             return (Criteria) this;
         }
 
-        public Criteria andLeaveTimeEndNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("leave_time_end not between", value1, value2, "leaveTimeEnd");
+        public Criteria andLeaveTimeEndNotIn(List<String> values) {
+            addCriterion("leave_time_end not in", values, "leaveTimeEnd");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveTimeEndBetween(String value1, String value2) {
+            addCriterion("leave_time_end between", value1, value2, "leaveTimeEnd");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveTimeEndNotBetween(String value1, String value2) {
+            addCriterion("leave_time_end not between", value1, value2, "leaveTimeEnd");
             return (Criteria) this;
         }
 

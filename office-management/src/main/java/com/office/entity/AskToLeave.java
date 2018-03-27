@@ -1,13 +1,11 @@
 package com.office.entity;
 
-import java.util.Date;
-
 public class AskToLeave {
     private Integer leaveId;
 
     private Integer empId;
 
-    private Date leaveTimeStart;
+    private String leaveTimeStart;
 
     private Integer leaveTime;
 
@@ -15,7 +13,7 @@ public class AskToLeave {
 
     private String leaveReason;
 
-    private Date leaveTimeEnd;
+    private String leaveTimeEnd;
 
     private Integer approvalId;
 
@@ -35,12 +33,12 @@ public class AskToLeave {
         this.empId = empId;
     }
 
-    public Date getLeaveTimeStart() {
+    public String getLeaveTimeStart() {
         return leaveTimeStart;
     }
 
-    public void setLeaveTimeStart(Date leaveTimeStart) {
-        this.leaveTimeStart = leaveTimeStart;
+    public void setLeaveTimeStart(String leaveTimeStart) {
+        this.leaveTimeStart = leaveTimeStart == null ? null : leaveTimeStart.trim();
     }
 
     public Integer getLeaveTime() {
@@ -67,12 +65,12 @@ public class AskToLeave {
         this.leaveReason = leaveReason == null ? null : leaveReason.trim();
     }
 
-    public Date getLeaveTimeEnd() {
+    public String getLeaveTimeEnd() {
         return leaveTimeEnd;
     }
 
-    public void setLeaveTimeEnd(Date leaveTimeEnd) {
-        this.leaveTimeEnd = leaveTimeEnd;
+    public void setLeaveTimeEnd(String leaveTimeEnd) {
+        this.leaveTimeEnd = leaveTimeEnd == null ? null : leaveTimeEnd.trim();
     }
 
     public Integer getApprovalId() {

@@ -17,7 +17,6 @@ public interface AskToLeaveMapper {
     int insertSelective(AskToLeave record);
 
     List<AskToLeave> selectByExample(AskToLeaveExample example);
-    List<AskToLeave> selectByExamplePage(AskToLeaveExample example);
 
     AskToLeave selectByPrimaryKey(Integer leaveId);
 

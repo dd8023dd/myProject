@@ -29,6 +29,15 @@ public class ApprovalControl {
 	@Autowired
 	private ExtraWorkService workService;
 	
+	@RequestMapping("toAskToLeave.do")
+	public String toAskToLeave() {
+		return "approval/askToLeavePage";
+	}
+	@RequestMapping("toExtraWork.do")
+	public String toExtraWork() {
+		return "approval/extraWorkPage";
+	}
+	
 	@RequestMapping("doAskToLeave.do")
 	@ResponseBody
 	public AjaxResult doAskToLeave(AskToLeave leave) {
@@ -131,7 +140,7 @@ public class ApprovalControl {
 	
 	@RequestMapping("leaveTable.do")
 	@ResponseBody
-	public DataTables leaveTable(Date time) {
+	public DataTables leaveTable(String time) {
 		DataTables table = new DataTables();
 		LeaveService.searchLeaceByLeaveTime(time);
 		//这边不用分页 = = 按照时间范围划分

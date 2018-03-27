@@ -34,11 +34,11 @@ var navs = [{
 	}, {
 		"title": "请假申请",
 		"icon": "&#xe63f;",
-		"href": "#",
+		"href": "/office-management/approval/toAskToLeave.do",
 	}, {
 		"title": "加班申请",
 		"icon": "&#xe63f;",
-		"href": "#"
+		"href": "/office-management/approval/toExtraWork.do"
 	}, {
 		"title": "我发起的",
 		"icon": "&#xe609;",

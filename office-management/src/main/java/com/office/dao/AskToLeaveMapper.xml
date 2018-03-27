@@ -4,11 +4,11 @@
   <resultMap id="BaseResultMap" type="com.office.entity.AskToLeave">
     <id column="leave_id" jdbcType="INTEGER" property="leaveId" />
     <result column="emp_id" jdbcType="INTEGER" property="empId" />
-    <result column="leave_time_start" jdbcType="DATE" property="leaveTimeStart" />
+    <result column="leave_time_start" jdbcType="CHAR" property="leaveTimeStart" />
     <result column="leave_time" jdbcType="INTEGER" property="leaveTime" />
     <result column="leave_evidence" jdbcType="VARCHAR" property="leaveEvidence" />
     <result column="leave_reason" jdbcType="VARCHAR" property="leaveReason" />
-    <result column="leave_time_end" jdbcType="DATE" property="leaveTimeEnd" />
+    <result column="leave_time_end" jdbcType="CHAR" property="leaveTimeEnd" />
     <result column="approval_id" jdbcType="INTEGER" property="approvalId" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -87,21 +87,6 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExamplePage" parameterType="com.office.entity.AskToLeaveExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from ask_to_leave
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if> 
-    limit #{start},#{end}
-  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -122,12 +107,12 @@
     <selectKey keyProperty="leaveId" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into ask_to_leave (leave_id, emp_id, leave_time_start, 
-      leave_time, leave_evidence, leave_reason, 
-      leave_time_end, approval_id)
-    values (#{leaveId,jdbcType=INTEGER}, #{empId,jdbcType=INTEGER}, #{leaveTimeStart,jdbcType=DATE}, 
-      #{leaveTime,jdbcType=INTEGER}, #{leaveEvidence,jdbcType=VARCHAR}, #{leaveReason,jdbcType=VARCHAR}, 
-      #{leaveTimeEnd,jdbcType=DATE}, #{approvalId,jdbcType=INTEGER})
+    insert into ask_to_leave (emp_id, leave_time_start, leave_time, 
+      leave_evidence, leave_reason, leave_time_end, 
+      approval_id)
+    values (#{empId,jdbcType=INTEGER}, #{leaveTimeStart,jdbcType=CHAR}, #{leaveTime,jdbcType=INTEGER}, 
+      #{leaveEvidence,jdbcType=VARCHAR}, #{leaveReason,jdbcType=VARCHAR}, #{leaveTimeEnd,jdbcType=CHAR}, 
+      #{approvalId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.office.entity.AskToLeave">
     <selectKey keyProperty="leaveId" order="AFTER" resultType="java.lang.Integer">
@@ -135,7 +120,6 @@
     </selectKey>
     insert into ask_to_leave
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      leave_id,
       <if test="empId != null">
         emp_id,
       </if>
@@ -159,12 +143,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      #{leaveId,jdbcType=INTEGER},
       <if test="empId != null">
         #{empId,jdbcType=INTEGER},
       </if>
       <if test="leaveTimeStart != null">
-        #{leaveTimeStart,jdbcType=DATE},
+        #{leaveTimeStart,jdbcType=CHAR},
       </if>
       <if test="leaveTime != null">
         #{leaveTime,jdbcType=INTEGER},
@@ -176,7 +159,7 @@
         #{leaveReason,jdbcType=VARCHAR},
       </if>
       <if test="leaveTimeEnd != null">
-        #{leaveTimeEnd,jdbcType=DATE},
+        #{leaveTimeEnd,jdbcType=CHAR},
       </if>
       <if test="approvalId != null">
         #{approvalId,jdbcType=INTEGER},
@@ -199,7 +182,7 @@
         emp_id = #{record.empId,jdbcType=INTEGER},
       </if>
       <if test="record.leaveTimeStart != null">
-        leave_time_start = #{record.leaveTimeStart,jdbcType=DATE},
+        leave_time_start = #{record.leaveTimeStart,jdbcType=CHAR},
       </if>
       <if test="record.leaveTime != null">
         leave_time = #{record.leaveTime,jdbcType=INTEGER},
@@ -211,7 +194,7 @@
         leave_reason = #{record.leaveReason,jdbcType=VARCHAR},
       </if>
       <if test="record.leaveTimeEnd != null">
-        leave_time_end = #{record.leaveTimeEnd,jdbcType=DATE},
+        leave_time_end = #{record.leaveTimeEnd,jdbcType=CHAR},
       </if>
       <if test="record.approvalId != null">
         approval_id = #{record.approvalId,jdbcType=INTEGER},
@@ -225,11 +208,11 @@
     update ask_to_leave
     set leave_id = #{record.leaveId,jdbcType=INTEGER},
       emp_id = #{record.empId,jdbcType=INTEGER},
-      leave_time_start = #{record.leaveTimeStart,jdbcType=DATE},
+      leave_time_start = #{record.leaveTimeStart,jdbcType=CHAR},
       leave_time = #{record.leaveTime,jdbcType=INTEGER},
       leave_evidence = #{record.leaveEvidence,jdbcType=VARCHAR},
       leave_reason = #{record.leaveReason,jdbcType=VARCHAR},
-      leave_time_end = #{record.leaveTimeEnd,jdbcType=DATE},
+      leave_time_end = #{record.leaveTimeEnd,jdbcType=CHAR},
       approval_id = #{record.approvalId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -242,7 +225,7 @@
         emp_id = #{empId,jdbcType=INTEGER},
       </if>
       <if test="leaveTimeStart != null">
-        leave_time_start = #{leaveTimeStart,jdbcType=DATE},
+        leave_time_start = #{leaveTimeStart,jdbcType=CHAR},
       </if>
       <if test="leaveTime != null">
         leave_time = #{leaveTime,jdbcType=INTEGER},
@@ -254,7 +237,7 @@
         leave_reason = #{leaveReason,jdbcType=VARCHAR},
       </if>
       <if test="leaveTimeEnd != null">
-        leave_time_end = #{leaveTimeEnd,jdbcType=DATE},
+        leave_time_end = #{leaveTimeEnd,jdbcType=CHAR},
       </if>
       <if test="approvalId != null">
         approval_id = #{approvalId,jdbcType=INTEGER},
@@ -265,11 +248,11 @@
   <update id="updateByPrimaryKey" parameterType="com.office.entity.AskToLeave">
     update ask_to_leave
     set emp_id = #{empId,jdbcType=INTEGER},
-      leave_time_start = #{leaveTimeStart,jdbcType=DATE},
+      leave_time_start = #{leaveTimeStart,jdbcType=CHAR},
       leave_time = #{leaveTime,jdbcType=INTEGER},
       leave_evidence = #{leaveEvidence,jdbcType=VARCHAR},
       leave_reason = #{leaveReason,jdbcType=VARCHAR},
-      leave_time_end = #{leaveTimeEnd,jdbcType=DATE},
+      leave_time_end = #{leaveTimeEnd,jdbcType=CHAR},
       approval_id = #{approvalId,jdbcType=INTEGER}
     where leave_id = #{leaveId,jdbcType=INTEGER}
   </update>

@@ -127,4 +127,15 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return (int) empMapper.countByExample(example);
 	}
 
+	/* 
+	 * @parameter 
+	 * @return 
+	 * @see com.office.service.EmployeeService#searchById(int)
+	 */
+	@Override
+	public Employee searchById(int id) {
+		
+		return empMapper.selectByPrimaryKey(id);
+	}
+
 }

@@ -12,7 +12,7 @@ public interface AskToLeaveService {
 	public int delLeaveByApprovalId(int approval_id);
 	public List<AskToLeave> searchAllLeave();
 	public List<AskToLeave> searchLeaveByEmp(int emp_id);
-	public List<AskToLeave> searchLeaceByLeaveTime(Date time);
+	public List<AskToLeave> searchLeaceByLeaveTime(String time);
 	public AskToLeave searchByLeaveId(int leave_id);
 	public AskToLeave searchByApprovalId(int approval_id);
 }

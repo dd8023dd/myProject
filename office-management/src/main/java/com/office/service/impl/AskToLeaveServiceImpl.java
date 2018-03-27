@@ -63,13 +63,10 @@ public class AskToLeaveServiceImpl implements AskToLeaveService{
 	}
 
 	@Override
-	public List<AskToLeave> searchLeaceByLeaveTime(Date time) {
+	public List<AskToLeave> searchLeaceByLeaveTime(String time) {
 		AskToLeaveExample example = new AskToLeaveExample();
 		Criteria criteria = example.createCriteria();
-	    Calendar calendar = new GregorianCalendar(); 
-	    calendar.setTime(time);
-	    calendar.add(Calendar.DATE, 1);
-		criteria.andLeaveTimeStartBetween(time, calendar.getTime());
+		criteria.andLeaveTimeEndEqualTo(time);
 		return askMapper.selectByExample(example);
 	}
 

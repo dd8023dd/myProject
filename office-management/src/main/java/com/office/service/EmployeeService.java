@@ -16,4 +16,5 @@ public interface EmployeeService {
 	public List<Employee> searchEmpByExample(Employee emp);
 	public List<Employee> searchEmpByPage(Employee emp,int start,int length);
 	public int searchEmpPageCount(Employee emp);
+	public Employee searchById(int id);
 }
