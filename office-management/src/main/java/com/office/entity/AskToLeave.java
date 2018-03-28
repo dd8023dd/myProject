@@ -16,8 +16,28 @@ public class AskToLeave {
     private String leaveTimeEnd;
 
     private Integer approvalId;
+    
+    private Approval approval;
+    private Employee emp;
+    
+    
+    public Approval getApproval() {
+		return approval;
+	}
 
-    public Integer getLeaveId() {
+	public void setApproval(Approval approval) {
+		this.approval = approval;
+	}
+
+	public Employee getEmp() {
+		return emp;
+	}
+
+	public void setEmp(Employee emp) {
+		this.emp = emp;
+	}
+
+	public Integer getLeaveId() {
         return leaveId;
     }
 

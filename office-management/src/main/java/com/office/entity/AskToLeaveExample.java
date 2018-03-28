@@ -3,7 +3,7 @@ package com.office.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AskToLeaveExample {
+public class AskToLeaveExample extends BaseExample{
     protected String orderByClause;
 
     protected boolean distinct;

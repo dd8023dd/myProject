@@ -11,6 +11,7 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="format-detection" content="telephone=no">
+	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/bootstrap/js/jquery.js"></script>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/plugins/layui/css/layui.css" media="all" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/global.css" media="all">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/plugins/font-awesome/css/font-awesome.min.css">
@@ -101,9 +102,9 @@
 			<script type="text/template" id="lock-temp">
 				<div class="admin-header-lock" id="lock-box">
 					<div class="admin-header-lock-img">
-						<img src="/office-managerment/static/img/zhangmj01.jpg" />
+						<img src="${pageContext.request.contextPath}/static/img/zhangmj01.jpg" />
 					</div>
-					<div class="admin-header-lock-name" id="lockUserName">zhangmj</div>
+					<div class="admin-header-lock-name" id="lockUserName">${username }</div>
 					<input type="text" class="admin-header-lock-input" value="输入密码解锁.." name="lockPwd" id="lockPwd" />
 					<button class="layui-btn layui-btn-small" id="unlock">解锁</button>
 				</div>
@@ -130,15 +131,6 @@
 							type: 2,
 							content: 'http://www.baidu.com',
 							area: ['900px', '650px']
-						});
-					});
-					$('#pay').on('click', function() {
-						layer.open({
-							title: false,
-							type: 1,
-							content: '<img src="images/xx.png" />',
-							area: ['500px', '250px'],
-							shadeClose: true
 						});
 					});
 				});

@@ -42,11 +42,11 @@ var navs = [{
 	}, {
 		"title": "我发起的",
 		"icon": "&#xe609;",
-		"href": "#"
+		"href": "/office-management/approval/toMyApprovalSend.do"
 	}, {
 		"title": "我审批的",
 		"icon": "&#xe609;",
-		"href": "#"
+		"href": "/office-management/approval/toMyAccept.do"
 	}]
 }, {
 	"title": "通讯系统",

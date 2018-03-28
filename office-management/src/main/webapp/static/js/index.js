@@ -190,7 +190,7 @@ function lock($, layer) {
             //do something...
             //e.g. 
 
-            $.getJSON('/Account/Logout', null, function (res) {
+            $.getJSON('/office-management/unlock.do', null, function (res) {
                 if (!res.rel) {
                     layer.msg(res.msg);
                 }
@@ -202,7 +202,7 @@ function lock($, layer) {
 
                 var userName = $lockBox.find('input[name=username]').val();
                 var pwd = $lockBox.find('input[name=password]').val();
-                if (pwd === '输入密码解锁..' || pwd.length === 0) {
+                if (pwd === '输入密码解锁..' || pwd === "") {
                     layer.msg('请输入密码..', {
                         icon: 2,
                         time: 1000
@@ -219,7 +219,7 @@ function lock($, layer) {
             var unlock = function (un, pwd) {
                 console.log(un, pwd);
                 //这里可以使用ajax方法解锁
-                $.post('/Account/UnLock', { userName: un, password: pwd }, function (res) {
+                $.post('/office-management/unlock.do', { userName: un, password: pwd }, function (res) {
                     //验证成功
                     if (res.rel) {
                         //关闭锁屏层
@@ -229,10 +229,10 @@ function lock($, layer) {
                         layer.msg(res.msg, { icon: 2, time: 1000 });
                     }
                 }, 'json');
-                //isShowLock = false;
+                isShowLock = false;
                 //演示：默认输入密码都算成功
                 //关闭锁屏层
-                //layer.close(lockIndex);
+                layer.close(lockIndex);
             };
         }
     });
