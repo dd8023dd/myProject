@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.office.dao.ExtraWorkMapper">
+  <resultMap id="BaseResultMapS" type="com.office.entity.ExtraWork">
+    <id column="extra_work_id" jdbcType="INTEGER" property="extraWorkId" />
+    <result column="emp_id" jdbcType="INTEGER" property="empId" />
+    <result column="extra_work_time" jdbcType="CHAR" property="extraWorkTime" />
+    <result column="is_holidy" jdbcType="INTEGER" property="isHolidy" />
+    <result column="approval_id" jdbcType="INTEGER" property="approvalId" />
+    <result column="time" jdbcType="CHAR" property="time" />
+  </resultMap>
   <resultMap id="BaseResultMap" type="com.office.entity.ExtraWork">
     <id column="extra_work_id" jdbcType="INTEGER" property="extraWorkId" />
     <result column="emp_id" jdbcType="INTEGER" property="empId" />
@@ -8,6 +16,8 @@
     <result column="is_holidy" jdbcType="INTEGER" property="isHolidy" />
     <result column="approval_id" jdbcType="INTEGER" property="approvalId" />
     <result column="time" jdbcType="CHAR" property="time" />
+     <association property="approval" javaType="com.office.entity.Approval" column="approval_id"  select="com.office.dao.ApprovalMapper.selectByPrimaryKey"></association>
+  	<association property="emp" javaType="com.office.entity.Employee" column="emp_id" select="com.office.dao.EmployeeMapper.selectByPrimaryKey"></association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>

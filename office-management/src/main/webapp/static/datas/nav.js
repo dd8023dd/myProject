@@ -42,11 +42,11 @@ var navs = [{
 	}, {
 		"title": "我发起的",
 		"icon": "&#xe609;",
-		"href": "#"
+		"href": "/office-management/approval/toMyApprovalSend.do"
 	}, {
 		"title": "我审批的",
 		"icon": "&#xe609;",
-		"href": "#"
+		"href": "/office-management/approval/toMyAccept.do"
 	}]
 }, {
 	"title": "通讯系统",
@@ -125,5 +125,9 @@ var navs = [{
 		"title":"会议室管理",
 		"icon": "&#xe68e",
 		"href": "/office-management/meeting/toMeetingRoomTable.do"
+	},{
+		"title":"审批组管理",
+		"icon": "&#xe642",
+		"href": "/office-management/approval/toApprovalGroupTable.do"
 	}]
 }];

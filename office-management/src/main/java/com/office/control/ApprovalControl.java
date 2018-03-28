@@ -2,6 +2,9 @@ package com.office.control;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,13 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.office.entity.Approval;
+import com.office.entity.ApprovalGroup;
 import com.office.entity.AskToLeave;
 import com.office.entity.ExtraWork;
+import com.office.service.ApprovalGroupService;
 import com.office.service.ApprovalService;
 import com.office.service.AskToLeaveService;
 import com.office.service.ExtraWorkService;
 import com.office.util.AjaxResult;
 import com.office.util.DataTables;
+import com.office.util.GetSessionContext;
 
 @Controller
 @RequestMapping("approval/")
@@ -28,23 +34,108 @@ public class ApprovalControl {
 	private AskToLeaveService LeaveService;
 	@Autowired
 	private ExtraWorkService workService;
+	@Autowired
+	private GetSessionContext getSession;
+	@Autowired
+	private ApprovalGroupService agService;
 	
+	@RequestMapping("toAddApprovalGroupMember.do")
+	public String toAddApprovalGroupMember() {
+		return "approval/addApprovalGroupMember";
+	}
+	@RequestMapping("toApprovalGroupTable.do")
+	public String toApprovalGroupTable() {
+		return "approval/approvalGroupTable";
+	}
 	@RequestMapping("toAskToLeave.do")
 	public String toAskToLeave() {
 		return "approval/askToLeavePage";
+	}
+	@RequestMapping("toMyAccept.do")
+	public String toMyAccept() {
+		return "approval/myAccept";
+	}
+	@RequestMapping("toMyApprovalSend.do")
+	public String toMyApprovalSend() {
+		return "approval/myApprovalSend";
 	}
 	@RequestMapping("toExtraWork.do")
 	public String toExtraWork() {
 		return "approval/extraWorkPage";
 	}
 	
+	@RequestMapping("approvalGroupTable.do")
+	@ResponseBody
+	public DataTables approvalGroupTable() {
+		DataTables dt = new DataTables();
+		List<ApprovalGroup> searchAllApprovalGroup = agService.searchAllApprovalGroup();
+		int count = (int)agService.searchAllCountApprovalGroup();
+		dt.setRecordsFiltered(count);
+		dt.setRecordsTotal(count);
+		dt.setData(searchAllApprovalGroup);
+		return dt;
+	}
+	
+	@RequestMapping("myAskToLeaveTable.do")
+	@ResponseBody
+	public DataTables myAskToLeaveTable(int start,int length,HttpServletRequest req) {
+		int emp_id = getSession.getEmpId(req);
+		DataTables dt = new DataTables();
+		List<AskToLeave> searchLeaveByEmp = LeaveService.searchLeaveByEmp(emp_id, start, length);
+		System.out.println(searchLeaveByEmp.get(0).getApproval().getApprovalStatus());
+		int count = LeaveService.searchLeaveByEmpCount(emp_id);
+		dt.setData(searchLeaveByEmp);
+		dt.setRecordsFiltered(count);
+		dt.setRecordsTotal(count);
+		return dt;
+	}
+	
+	@RequestMapping("addApprovalGroupMember.do")
+	@ResponseBody
+	public AjaxResult addApprovalGroupMember(ApprovalGroup ag) {
+		AjaxResult result = new AjaxResult();
+		int res = agService.insertApprovalGroup(ag);
+		result.setTag(res);
+		if(res > 0) {
+			result.setMessage("成员添加成功");
+		}else if(res == -2) {
+			result.setMessage("该员工ID不存在");
+		}else {
+			result.setMessage("成员添加失败");
+		}
+		return result;
+	}
+	
+	@RequestMapping("delApprovalGroupMember.do")
+	@ResponseBody
+	public AjaxResult delApprovalGroupMember(int id) {
+		AjaxResult result = new AjaxResult();
+		int res = agService.delApprovalGroup(id);
+		result.setTag(res);
+		if(res > 0) {
+			result.setMessage("删除成功");
+		}else {
+			result.setMessage("删除失败");
+		}
+		return result;
+	}
+	
 	@RequestMapping("doAskToLeave.do")
 	@ResponseBody
-	public AjaxResult doAskToLeave(AskToLeave leave) {
+	public AjaxResult doAskToLeave(AskToLeave leave,HttpServletRequest req) {
 		AjaxResult result = new AjaxResult();	
 		int leaveRes = -1;
+		Object attribute = req.getSession().getAttribute("emp_id");
+		if(!StringUtils.isEmpty(attribute)) {
+			int emp_id = Integer.parseInt(attribute.toString());
+			leave.setEmpId(emp_id);
+		}else {
+			result.setTag(leaveRes);
+			result.setMessage("登录信息丢失,请重新登录后再试");
+			return result;
+		}
 		Approval approval = creatApproval(1, leave);
-		if(approval != null ) {
+		if(!StringUtils.isEmpty(approval)) {
 			leave.setApprovalId(approval.getApprovalId());
 			leaveRes = LeaveService.insertLeave(leave);
 			if(leaveRes<1) {
@@ -58,9 +149,18 @@ public class ApprovalControl {
 	
 	@RequestMapping("doExtraWork.do")
 	@ResponseBody
-	public AjaxResult doExtraWork(ExtraWork work) {
+	public AjaxResult doExtraWork(ExtraWork work,HttpServletRequest req) {
 		AjaxResult result = new AjaxResult();
 		int workRes = -1;
+		Object attribute = req.getSession().getAttribute("emp_id");
+		if(!StringUtils.isEmpty(attribute)) {
+			int emp_id = Integer.parseInt(attribute.toString());
+			work.setEmpId(emp_id);
+		}else {
+			result.setTag(workRes);
+			result.setMessage("登录信息丢失,请重新登录后再试");
+			return result;
+		}
 		Approval approval = creatApproval(2, work);
 		if(approval != null) {
 			work.setApprovalId(approval.getApprovalId());
@@ -84,9 +184,9 @@ public class ApprovalControl {
 		if(approval_type == 1) {
 			approval.setApprovalType("askToLeave");
 			Integer leaveTime = ((AskToLeave) o).getLeaveTime();
-			if(leaveTime<=3) {
+			if(leaveTime<=3) {//三种审批等级
 				approval.setApprovalLevel(1);
-			}else if(3<leaveTime && leaveTime<=7) {
+			}else if(3<leaveTime && leaveTime<=7){
 				approval.setApprovalLevel(2);
 			}else if(leaveTime>7) {
 				approval.setApprovalLevel(3);
@@ -96,8 +196,6 @@ public class ApprovalControl {
 			approval.setApprovalLevel(1);
 		}
 		int insertApproval = appService.insertApproval(approval);
-		int approvalId = appService.searchApprovalByApprovalNo(approval.getApprovalNo()).getApprovalId();
-		approval.setApprovalId(approvalId);
 		return insertApproval>0?approval:null;
 	}
 	
@@ -154,8 +252,14 @@ public class ApprovalControl {
 	
 	@RequestMapping("workTable.do")
 	@ResponseBody
-	public DataTables workTable() {
+	public DataTables workTable(HttpServletRequest request,int start,int length) {
 		DataTables table = new DataTables();
+		int emp_id = getSession.getEmpId(request);
+		List<ExtraWork> list = workService.searchExtraWorkByEmp(emp_id,start,length);
+		table.setData(list);
+		int count = (int)workService.searchExtraWorkCountByEmp(emp_id);
+		table.setRecordsFiltered(count);
+		table.setRecordsTotal(count);
 		return table;
 	}
 }

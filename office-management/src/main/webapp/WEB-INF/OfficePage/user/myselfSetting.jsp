@@ -32,12 +32,12 @@ $(document).ready(function(){
 <body>
 <div class="col-sm-6">
 <ul class="list-group">
-    <li class="list-group-item" id="userName">参数未找到,请登陆后重试</li>
-    <li class="list-group-item" id="address">参数未找到,请登陆后重试</li>
-    <li class="list-group-item" id="empName">参数未找到,请登陆后重试</li>
-    <li class="list-group-item" id="empNo">参数未找到,请登陆后重试</li>
-    <li class="list-group-item" id="birthDay">参数未找到,请登陆后重试</li>
-    <li class="list-group-item" id="hireDay">参数未找到,请登陆后重试</li>
+    <li class="list-group-item" id="userName">加载中...(若加载失败请重新登录后重试)</li>
+    <li class="list-group-item" id="address">加载中...</li>
+    <li class="list-group-item" id="empName">加载中...</li>
+    <li class="list-group-item" id="empNo">加载中...</li>
+    <li class="list-group-item" id="birthDay">加载中...</li>
+    <li class="list-group-item" id="hireDay">加载中...</li>
 </ul>
 </div>
 </body>

@@ -62,10 +62,12 @@ public class ExtraWorkServiceImpl implements ExtraWorkService{
 	}
 
 	@Override
-	public List<ExtraWork> searchExtraWorkByEmp(int emp_id) {
+	public List<ExtraWork> searchExtraWorkByEmp(int emp_id,int start,int end) {
 		ExtraWorkExample example = new ExtraWorkExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andEmpIdEqualTo(emp_id);
+		example.setStart(start);
+		example.setEnd(end);
 		return extMapper.selectByExample(example);
 	}
 
@@ -106,6 +108,19 @@ public class ExtraWorkServiceImpl implements ExtraWorkService{
 			return null;
 		}
 		return (ExtraWork) selectByExample;
+	}
+
+	/* 
+	 * @parameter 
+	 * @return 
+	 * @see com.office.service.ExtraWorkService#searchExtraWorkCountByEmp(int)
+	 */
+	@Override
+	public long searchExtraWorkCountByEmp(int emp_id) {
+		ExtraWorkExample example = new ExtraWorkExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andEmpIdEqualTo(emp_id);
+		return extMapper.countByExample(example);
 	}
 
 }

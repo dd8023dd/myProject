@@ -1,8 +1,5 @@
 package com.office.service.impl;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,15 +48,17 @@ public class AskToLeaveServiceImpl implements AskToLeaveService{
 
 	@Override
 	public List<AskToLeave> searchAllLeave() {
-		return askMapper.selectByExample(null);
+		return askMapper.selectByExampleS(null);
 	}
 
 	@Override
-	public List<AskToLeave> searchLeaveByEmp(int emp_id) {
+	public List<AskToLeave> searchLeaveByEmp(int emp_id,int start,int end) {
 		AskToLeaveExample example = new AskToLeaveExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andEmpIdEqualTo(emp_id);
-		return askMapper.selectByExample(example);
+		example.setStart(start);
+		example.setEnd(end);
+		return askMapper.selectByExampleS(example);
 	}
 
 	@Override
@@ -67,12 +66,12 @@ public class AskToLeaveServiceImpl implements AskToLeaveService{
 		AskToLeaveExample example = new AskToLeaveExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andLeaveTimeEndEqualTo(time);
-		return askMapper.selectByExample(example);
+		return askMapper.selectByExampleS(example);
 	}
 
 	@Override
 	public AskToLeave searchByLeaveId(int leave_id) {
-		return askMapper.selectByPrimaryKey(leave_id);
+		return askMapper.selectByPrimaryKeyS(leave_id);
 	}
 
 	@Override
@@ -88,12 +87,25 @@ public class AskToLeaveServiceImpl implements AskToLeaveService{
 		AskToLeaveExample example = new AskToLeaveExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andApprovalIdEqualTo(approval_id);
-		List<AskToLeave> selectByExample = askMapper.selectByExample(example);
-		if(selectByExample.size() >1){
+		List<AskToLeave> selectByExampleS = askMapper.selectByExampleS(example);
+		if(selectByExampleS.size() >1){
 			System.err.println("异常:多个请假类符合approval_id");
 			return null;
 		}
-		return (AskToLeave) selectByExample;
+		return (AskToLeave) selectByExampleS;
+	}
+
+	/* 
+	 * @parameter 
+	 * @return 
+	 * @see com.office.service.AskToLeaveService#searchLeaveByEmpCount(int)
+	 */
+	@Override
+	public int searchLeaveByEmpCount(int emp_id) {
+		AskToLeaveExample example = new AskToLeaveExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andEmpIdEqualTo(emp_id);
+		return (int)askMapper.countByExample(example);
 	}
 
 }

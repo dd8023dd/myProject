@@ -12,8 +12,27 @@ public class ExtraWork {
     private Integer approvalId;
 
     private String time;
+    
+    private Employee emp;
+    private Approval approval;
 
-    public Integer getExtraWorkId() {
+    public Employee getEmp() {
+		return emp;
+	}
+
+	public void setEmp(Employee emp) {
+		this.emp = emp;
+	}
+
+	public Approval getApproval() {
+		return approval;
+	}
+
+	public void setApproval(Approval approval) {
+		this.approval = approval;
+	}
+
+	public Integer getExtraWorkId() {
         return extraWorkId;
     }
 

@@ -11,6 +11,18 @@
     <result column="leave_time_end" jdbcType="CHAR" property="leaveTimeEnd" />
     <result column="approval_id" jdbcType="INTEGER" property="approvalId" />
   </resultMap>
+  <resultMap id="BaseResultMapS" type="com.office.entity.AskToLeave">
+    <id column="leave_id" jdbcType="INTEGER" property="leaveId" />
+    <result column="emp_id" jdbcType="INTEGER" property="empId" />
+    <result column="leave_time_start" jdbcType="CHAR" property="leaveTimeStart" />
+    <result column="leave_time" jdbcType="INTEGER" property="leaveTime" />
+    <result column="leave_evidence" jdbcType="VARCHAR" property="leaveEvidence" />
+    <result column="leave_reason" jdbcType="VARCHAR" property="leaveReason" />
+    <result column="leave_time_end" jdbcType="CHAR" property="leaveTimeEnd" />
+    <result column="approval_id" jdbcType="INTEGER" property="approvalId" />
+    <association property="approval" javaType="com.office.entity.Approval" column="approval_id"  select="com.office.dao.ApprovalMapper.selectByPrimaryKey"></association>
+  	<association property="emp" javaType="com.office.entity.Employee" column="emp_id" select="com.office.dao.EmployeeMapper.selectByPrimaryKey"></association>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -87,11 +99,32 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByExampleS" parameterType="com.office.entity.AskToLeaveExample" resultMap="BaseResultMapS">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ask_to_leave
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+     limit #{start},#{end}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from ask_to_leave
     where leave_id = #{leaveId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKeyS" parameterType="java.lang.Integer" resultMap="BaseResultMapS">
+    select 
+    <include refid="Base_Column_List" />
+    from ask_to_leave
+    where leave_id = #{leaveId,jdbcType=INTEGER}  limit #{start},#{end}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from ask_to_leave
