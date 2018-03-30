@@ -1,6 +1,6 @@
 package com.office.entity;
 
-public class ExtraWork {
+public class ExtraWork extends ApprovalGroupMember{
     private Integer extraWorkId;
 
     private Integer empId;

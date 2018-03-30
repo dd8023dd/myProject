@@ -13,16 +13,22 @@
 <title>请假审批</title>
 <script type="text/javascript">
 $(document).ready(function(){
-	//加载的时候把审批组的数据加载进来
-	$("#sub").click(function(){
-		askto();
-	});
-	$("#approvalPerson").html(function(){
-		var a="";
-		for(var i=1;i<3;i++){
-			a = a + "<option value='"+i+"'>"+i+"</option>";
+	$.ajax({//ajax加载审批组数据
+		url : "${pageContext.request.contextPath}/approval/approvalGroupList.do",
+		type : "post",
+		dataType : "json",
+		success : function(result) {
+			$("#approvalPerson").html(function(){
+				var a="";
+				for(var i=0;i<result.tag.length;i++){
+					a = a + "<option value='"+result.tag[i].emp.empId+"'>"+result.tag[i].emp.empName+"</option>";
+				}
+				return a;
+			});
 		}
-		return a;
+	});
+	$("#sub").click(function(){
+		askto(); 
 	});
 })
 function askto() {
@@ -30,7 +36,7 @@ function askto() {
 		url:"${pageContext.request.contextPath}/approval/doAskToLeave.do",
 		dataType : "json",
 		type : "post",
-		data : $("#frmToLeave").serialize(),
+		data :$("#frmToLeave").serialize(),
 		success:function(res){
 			alert(res.message);
 		}
@@ -72,12 +78,12 @@ function askto() {
 	<div class="form-group">
 		<label class="col-sm-2 control-label">审批人</label>
 		<div class="col-sm-6">
-			<select id="approvalPerson" class="form-control"></select>
+			<select id="approvalPerson" name="approvalPersonId"  class="form-control"></select>
 		</div>
 	</div>
 	<div class="form-group">
 	<label class="col-sm-2 control-label"></label>
-	<div class="col-sm-6">
+		<div class="col-sm-6">
 			<button type="button" class="btn btn-info btn-lg btn-block" id="sub">提交</button>
 		</div>
 	</div>

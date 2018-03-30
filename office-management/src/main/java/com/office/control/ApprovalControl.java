@@ -1,6 +1,7 @@
 package com.office.control;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.office.entity.Approval;
 import com.office.entity.ApprovalGroup;
+import com.office.entity.ApprovalMember;
 import com.office.entity.AskToLeave;
 import com.office.entity.ExtraWork;
 import com.office.service.ApprovalGroupService;
@@ -64,6 +66,58 @@ public class ApprovalControl {
 		return "approval/extraWorkPage";
 	}
 	
+	@RequestMapping("approvalGroupList.do")
+	@ResponseBody
+	public AjaxResult approvalGroupList() {
+		AjaxResult result = new AjaxResult();
+		List<ApprovalGroup> searchAllApprovalGroup = agService.searchAllApprovalGroup();
+		result.setTag(searchAllApprovalGroup);
+		return result;
+	}
+	
+	@RequestMapping("myAcceptApproval.do")
+	@ResponseBody
+	public DataTables myAcceptApproval(HttpServletRequest req,int start,int length) {
+		DataTables dt = new DataTables();
+		int emp_id = getSession.getEmpId(req);//在session中获取当前登录员工id
+		List<ApprovalMember> memberList = appService.searchApprovalMemberByAccepter(emp_id);
+		List<AskToLeave> leave =  new ArrayList<AskToLeave>();
+		if(!StringUtils.isEmpty(memberList)) {
+			for (ApprovalMember approvalMember : memberList) {
+				AskToLeave leave2 = LeaveService.searchByApprovalId(approvalMember.getApprovalId());
+				if(StringUtils.isEmpty(leave2)) {
+					continue;
+				}
+				leave.add(leave2);
+				dt.setData(leave);
+			}
+		}
+		dt.setRecordsFiltered(leave.size());
+		dt.setRecordsTotal(leave.size());
+		return dt;
+	}
+	@RequestMapping("myAcceptApprovalExw.do")//接受加班审批
+	@ResponseBody
+	public DataTables myAcceptApprovalExw(HttpServletRequest req,int start,int length) {
+		DataTables dt = new DataTables();
+		int emp_id = getSession.getEmpId(req);//在session中获取当前登录员工id
+		List<ApprovalMember> memberList = appService.searchApprovalMemberByAccepter(emp_id);
+		List<ExtraWork> ew =  new ArrayList<ExtraWork>();
+		if(!StringUtils.isEmpty(memberList)) {
+			for (ApprovalMember approvalMember : memberList) {
+				ExtraWork byApprovalId = workService.searchByApprovalId(approvalMember.getApprovalId());
+				if(StringUtils.isEmpty(byApprovalId)) {
+					continue;
+				}
+				ew.add(byApprovalId);
+				dt.setData(ew);
+			}
+		}
+		dt.setRecordsFiltered(ew.size());
+		dt.setRecordsTotal(ew.size());
+		return dt;
+	}
+	
 	@RequestMapping("approvalGroupTable.do")
 	@ResponseBody
 	public DataTables approvalGroupTable() {
@@ -82,7 +136,6 @@ public class ApprovalControl {
 		int emp_id = getSession.getEmpId(req);
 		DataTables dt = new DataTables();
 		List<AskToLeave> searchLeaveByEmp = LeaveService.searchLeaveByEmp(emp_id, start, length);
-		System.out.println(searchLeaveByEmp.get(0).getApproval().getApprovalStatus());
 		int count = LeaveService.searchLeaveByEmpCount(emp_id);
 		dt.setData(searchLeaveByEmp);
 		dt.setRecordsFiltered(count);
@@ -135,16 +188,27 @@ public class ApprovalControl {
 			return result;
 		}
 		Approval approval = creatApproval(1, leave);
-		if(!StringUtils.isEmpty(approval)) {
+		ApprovalMember am = creatApprovalMember(approval.getApprovalId(),leave.getEmpId(),leave.getApprovalPersonId());
+		if(!StringUtils.isEmpty(approval) && !StringUtils.isEmpty(am)) {
 			leave.setApprovalId(approval.getApprovalId());
 			leaveRes = LeaveService.insertLeave(leave);
 			if(leaveRes<1) {
+				appService.delApprovalMember(am.getApprovalMemberId());
 				appService.delApproval(approval.getApprovalId());
 			}
 		}
 		result.setTag(leaveRes);
 		result.setMessage(leaveRes>0?"审批提交成功":"审批提交失败,请重试");
 		return result;
+	}
+	
+	public ApprovalMember creatApprovalMember(int approvalId,int empId,int accepterId) {
+		ApprovalMember am = new ApprovalMember();
+		am.setApprovalAccpeterId(accepterId);
+		am.setApprovalId(approvalId);
+		am.setApprovalSenderId(empId);
+		int inserApprovalMember = appService.inserApprovalMember(am);
+		return inserApprovalMember>0?am:null;
 	}
 	
 	@RequestMapping("doExtraWork.do")
@@ -162,10 +226,12 @@ public class ApprovalControl {
 			return result;
 		}
 		Approval approval = creatApproval(2, work);
+		ApprovalMember am = creatApprovalMember(approval.getApprovalId(),work.getEmpId(),work.getApprovalPersonId());
 		if(approval != null) {
 			work.setApprovalId(approval.getApprovalId());
 			workRes = workService.insertExtraWork(work);
 			if(workRes<1) {
+				appService.delApprovalMember(am.getApprovalMemberId());
 				appService.delApproval(approval.getApprovalId());
 			}
 		} 

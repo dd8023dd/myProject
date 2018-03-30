@@ -1,6 +1,6 @@
 package com.office.entity;
 
-public class AskToLeave {
+public class AskToLeave extends ApprovalGroupMember{
     private Integer leaveId;
 
     private Integer empId;

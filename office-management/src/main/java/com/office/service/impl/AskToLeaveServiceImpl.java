@@ -87,12 +87,14 @@ public class AskToLeaveServiceImpl implements AskToLeaveService{
 		AskToLeaveExample example = new AskToLeaveExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andApprovalIdEqualTo(approval_id);
+		example.setStart(0);
+		example.setEnd(1);
 		List<AskToLeave> selectByExampleS = askMapper.selectByExampleS(example);
 		if(selectByExampleS.size() >1){
 			System.err.println("异常:多个请假类符合approval_id");
 			return null;
 		}
-		return (AskToLeave) selectByExampleS;
+		return (AskToLeave) (selectByExampleS.size()>0?selectByExampleS.get(0):null);
 	}
 
 	/* 

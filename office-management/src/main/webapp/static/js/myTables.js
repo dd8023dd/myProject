@@ -469,7 +469,7 @@ function createTable_ExtraWorkWaitProval(){
 		serverSide:true,//开启服务器模式
 		//数据来源（分页排序过滤）
 		ajax:{
-			url:'/office-management/approval/workTable.do',
+			url:'/office-management/approval/myAcceptApprovalExw.do',
 			dataSrc:"data",
 			type:"post",
 		},
@@ -499,7 +499,7 @@ function createTable_ExtraWorkWaitProval(){
 			] 
 	});
 }
-/****************************MyAskLeaveTable***************************/
+/****************************MyAcceptAskLeaveTable***************************/
 var datatable_askToLeaveWaitProval = null;
 function createTable_AskToLeaveWaitProval(){
 	if(datatable_askToLeaveWaitProval != null){
@@ -516,7 +516,7 @@ function createTable_AskToLeaveWaitProval(){
 		serverSide:true,//开启服务器模式
 		//数据来源（分页排序过滤）
 		ajax:{
-			url:'/office-management/approval/myAskToLeaveTable.do',
+			url:'/office-management/approval/myAcceptApproval.do',
 			dataSrc:"data",
 			type:"post",
 		},

@@ -102,12 +102,14 @@ public class ExtraWorkServiceImpl implements ExtraWorkService{
 		ExtraWorkExample example = new ExtraWorkExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andApprovalIdEqualTo(approval_id);
+		example.setStart(0);
+		example.setEnd(1);
 		List<ExtraWork> selectByExample = extMapper.selectByExample(example);
 		if(selectByExample.size() >1){
 			System.err.println("异常:多个加班类符合approval_id");
 			return null;
 		}
-		return (ExtraWork) selectByExample;
+		return (ExtraWork)(selectByExample.size()>0?selectByExample.get(0):null);
 	}
 
 	/* 

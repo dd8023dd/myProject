@@ -13,6 +13,20 @@
 <title>加班审批</title>
 <script type="text/javascript">
 $(document).ready(function(){
+	$.ajax({//ajax加载审批组数据
+		url : "${pageContext.request.contextPath}/approval/approvalGroupList.do",
+		type : "post",
+		dataType : "json",
+		success : function(result) {
+			$("#approvalPerson").html(function(){
+				var a="";
+				for(var i=0;i<result.tag.length;i++){
+					a = a + "<option value='"+result.tag[i].emp.empId+"'>"+result.tag[i].emp.empName+"</option>";
+				}
+				return a;
+			});
+		}
+	});
 	$("#sub").click(function(){
 		extrawork();
 	})
@@ -48,6 +62,12 @@ function extrawork() {
 		<label class="col-sm-2 control-label">加班时间</label>
 		<div class="col-sm-6">
 			<input type="text" name="time" class="form-control input"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">审批人</label>
+		<div class="col-sm-6">
+			<select id="approvalPerson" name="approvalPersonId"  class="form-control"></select>
 		</div>
 	</div>
 	<div class="form-group">
