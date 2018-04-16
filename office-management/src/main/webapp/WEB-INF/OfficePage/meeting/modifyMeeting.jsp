@@ -9,7 +9,7 @@
 $(document).ready(function(){
 	$("#btnModifyMeet").click(function(){
 		$.ajax({
-			url : "${pageContext.request.contextPath}/meeting/modifyMeeting.do",
+			url : "/meeting/modifyMeeting.do",
 			type : "post",
 			data : $("#frmModifyMeet").serialize(),
 			dataType : "json",

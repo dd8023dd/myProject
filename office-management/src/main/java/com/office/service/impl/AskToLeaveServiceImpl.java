@@ -110,4 +110,27 @@ public class AskToLeaveServiceImpl implements AskToLeaveService{
 		return (int)askMapper.countByExample(example);
 	}
 
+	/* 
+	 * @parameter 
+	 * @return 
+	 * @see com.office.service.AskToLeaveService#searchAllLeaveS(int, int)
+	 */
+	@Override
+	public List<AskToLeave> searchAllLeaveS(int start, int length) {
+		AskToLeaveExample example = new AskToLeaveExample();
+		example.setStart(start);
+		example.setEnd(length);
+		return askMapper.selectByExampleS(example);
+	}
+
+	/* 
+	 * @parameter 
+	 * @return 
+	 * @see com.office.service.AskToLeaveService#searchLeaveCount()
+	 */
+	@Override
+	public int searchLeaveCount() {
+		return (int)askMapper.countByExample(null);
+	}
+
 }

@@ -125,4 +125,28 @@ public class ExtraWorkServiceImpl implements ExtraWorkService{
 		return extMapper.countByExample(example);
 	}
 
+	/* 
+	 * @parameter 
+	 * @return 
+	 * @see com.office.service.ExtraWorkService#searchAllExtraWorkS(int, int)
+	 */
+	@Override
+	public List<ExtraWork> searchAllExtraWorkS(int start, int end) {
+		ExtraWorkExample example = new ExtraWorkExample();
+		example.setStart(start);
+		example.setEnd(end);
+		return extMapper.selectByExample(example);
+	}
+
+	/* 
+	 * @parameter 
+	 * @return 
+	 * @see com.office.service.ExtraWorkService#searchCountAll()
+	 */
+	@Override
+	public int searchCountAll() {
+		// TODO Auto-generated method stub
+		return (int)extMapper.countByExample(null);
+	}
+
 }

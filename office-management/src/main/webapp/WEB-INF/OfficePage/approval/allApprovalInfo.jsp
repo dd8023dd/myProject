@@ -12,15 +12,12 @@
 <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/static/css/MyDataTable.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>待我审批</title>
+<title>审批信息管理表</title>
 <script type="text/javascript">
 $(document).ready(function(){
-	//----------请假申请-------//
-	createTable_AskToLeaveWaitProval();
-	//----------加班申请-------//
-	createTable_ExtraWorkWaitProval();
-});
+	datatable_AllAskToLeave();
+	datatable_AllExtrawork();
+})
 </script>
 </head>
 <body>
@@ -37,7 +34,7 @@ $(document).ready(function(){
 </ul>
 <div id="myTabContent" class="tab-content">
 	<div class="tab-pane fade in active" id="home">
-		<table id="datatable_askToLeaveWaitProval"  class="display" cellspacing="0" style="width:100%">
+		<table id="datatable_allAskToLeave"  class="display" cellspacing="0" style="width:100%">
 			<thead>
 				<tr>
 					<th>请假单ID</th>
@@ -47,13 +44,12 @@ $(document).ready(function(){
 					<th>请假凭证</th>
 					<th>请假缘由</th>
 					<th>审批状态</th>
-					<th>操作</th>
 				</tr>
 			</thead>
 		</table>
 	</div>
 	<div class="tab-pane fade" id="ios">
-		<table id="datatable_extraWorkWaitProval"  class="display" cellspacing="0" style="width:100%">
+		<table id="datatable_allExtrawork"  class="display" cellspacing="0" style="width:100%">
 			<thead>
 				<tr>
 					<th>ID</th>
@@ -62,7 +58,6 @@ $(document).ready(function(){
 					<th>加班时长</th>
 					<th>是否节假日</th>
 					<th>审批状态</th>
-					<th>操作</th>
 				</tr>
 			</thead>
 		</table>

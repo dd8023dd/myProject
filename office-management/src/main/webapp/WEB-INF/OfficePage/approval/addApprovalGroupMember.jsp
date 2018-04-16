@@ -8,7 +8,7 @@
 <script type="text/javascript">
 $("#btnAddApprovalGroupMember").click(function(){
 	$.ajax({
-		url : "${pageContext.request.contextPath}/approval/addApprovalGroupMember.do",
+		url : "/approval/addApprovalGroupMember.do",
 		type : "post",
 		data : $("#frmAddApprovalGroupMember").serialize(),
 		dataType : "json",

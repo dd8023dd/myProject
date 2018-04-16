@@ -11,13 +11,13 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="format-detection" content="telephone=no">
-	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/bootstrap/js/jquery.js"></script>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/plugins/layui/css/layui.css" media="all" />
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/global.css" media="all">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/plugins/font-awesome/css/font-awesome.min.css">
-	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/plugins/layui/layui.js"></script>
-	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/datas/nav.js"></script>
-	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/js/index.js"></script>
+	<script type="text/javascript" charset="utf8" src="/static/bootstrap/js/jquery.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/plugins/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="/static/css/global.css" media="all">
+	<link rel="stylesheet" type="text/css" href="/static/plugins/font-awesome/css/font-awesome.min.css">
+	<script type="text/javascript" charset="utf8" src="/static/plugins/layui/layui.js"></script>
+	<script type="text/javascript" charset="utf8" src="/static/datas/nav.js"></script>
+	<script type="text/javascript" charset="utf8" src="/static/js/index.js"></script>
 </head>
 	<body>
 		<div class="layui-layout layui-layout-admin" style="border-bottom:solid 5px #1aa094;">
@@ -46,12 +46,12 @@
 						</li>
 						<li class="layui-nav-item">
 							<a href="#" class="admin-header-user">
-								<img src="${pageContext.request.contextPath}/static/img/zhangmj01.jpg" />
+								<img src="/static/img/zhangmj01.jpg" />
 								<span>${username }</span>
 							</a>
 							<dl class="layui-nav-child">
 								<dd>
-									<a href="${pageContext.request.contextPath}/user/toMyself.do" target="_blank"><i class="fa fa-user-circle" aria-hidden="true"></i> 个人信息</a>
+									<a href="/user/toMyself.do" target="_blank"><i class="fa fa-user-circle" aria-hidden="true"></i> 个人信息</a>
 								</dd>
 								<dd>
 									<a href="#"><i class="fa fa-gear" aria-hidden="true"></i> 设置</a>
@@ -62,14 +62,14 @@
 									</a>
 								</dd>
 								<dd>
-									<a href="${pageContext.request.contextPath}/login.do"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a>
+									<a href="/login.do"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a>
 								</dd>
 							</dl>
 						</li>
 					</ul>
 					<ul class="layui-nav admin-header-item-mobile">
 						<li class="layui-nav-item">
-							<a href="${pageContext.request.contextPath}/login.do"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a>
+							<a href="/login.do"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a>
 						</li>
 					</ul>
 				</div>
@@ -87,7 +87,7 @@
 					</ul>
 					<div class="layui-tab-content" style="min-height:150px;padding: 5px 0 0 0;">
 						<div class="layui-tab-item layui-show">
-							<iframe src="${pageContext.request.contextPath}/toMain.do"></iframe>
+							<iframe src="/toMain.do"></iframe>
 						</div>
 					</div>
 				</div>
@@ -102,7 +102,7 @@
 			<script type="text/template" id="lock-temp">
 				<div class="admin-header-lock" id="lock-box">
 					<div class="admin-header-lock-img">
-						<img src="${pageContext.request.contextPath}/static/img/zhangmj01.jpg" />
+						<img src="/static/img/zhangmj01.jpg" />
 					</div>
 					<div class="admin-header-lock-name" id="lockUserName">${username }</div>
 					<input type="text" class="admin-header-lock-input" value="输入密码解锁.." name="lockPwd" id="lockPwd" />

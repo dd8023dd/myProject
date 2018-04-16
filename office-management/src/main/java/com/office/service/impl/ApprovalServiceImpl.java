@@ -2,6 +2,7 @@ package com.office.service.impl;
 
 import java.util.List;
 
+import org.eclipse.jetty.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -29,20 +30,6 @@ public class ApprovalServiceImpl implements ApprovalService{
 		if(StringUtils.isEmpty(approval.getApprovalStatus()) || approval.getApprovalStatus() ==0 ) {
 			approval.setApprovalStatus(1);//1为待审批
 			result = appMapper.insert(approval);
-		}
-		return result;
-	}
-	/*
-	 * 审批
-	 * @param Approval对象(添加完审批状态)
-	 * 只能审批待审批状态  = = 传入其他状态的返回-1
-	 * -1为已审批
-	 */
-	@Override
-	public int doApproval(Approval approval) {
-		int result = -1;
-		if(approval.getApprovalStatus() == 1) {
-			result = appMapper.updateByPrimaryKey(approval);
 		}
 		return result;
 	}
@@ -183,5 +170,25 @@ public class ApprovalServiceImpl implements ApprovalService{
 		com.office.entity.ApprovalMemberExample.Criteria criteria = example.createCriteria();
 		criteria.andApprovalSenderIdEqualTo(senderId);
 		return (int)amMapper.countByExample(example);
+	}
+	
+	/**
+	 * 审批
+	 * @param Approval对象(添加完审批状态)
+	 * 只能审批待审批状态  = = 传入其他状态的返回-1
+	 */
+	@Override
+	public int doApproval(Approval approval, String status) {
+		int result = -1;
+		if(approval.getApprovalStatus() != 1) {
+			return -1;
+		}
+		if(StringUtil.isNotBlank(status)&&"1".equals(status)) {//通过
+			approval.setApprovalStatus(2);
+		}else if(StringUtil.isNotBlank(status)&&"0".equals(status)) {//拒绝
+			approval.setApprovalStatus(3);
+		}
+		result = appMapper.updateByPrimaryKey(approval);
+		return result;
 	}
 }

@@ -6,14 +6,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>移动办公管理系统-登陆</title>
 <meta name="author" content="DeathGhost" />
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/style.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/style.css" />
 <style>
-body{height:100%;overflow:hidden;background-image: url(${pageContext.request.contextPath}/static/img/xingkong.jpg);background-size:cover;}
+body{height:100%;overflow:hidden;background-image: url(/static/img/xingkong.jpg);background-size:cover;}
 canvas{z-index:-1;position:absolute;}
 </style>
-<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/bootstrap/js/jquery.js"></script>
-<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/js/verificationNumbers.js"></script>
-<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/js/Particleground.js"></script>
+<script type="text/javascript" charset="utf8" src="/static/bootstrap/js/jquery.js"></script>
+<script type="text/javascript" charset="utf8" src="/static/js/verificationNumbers.js"></script>
+<script type="text/javascript" charset="utf8" src="/static/js/Particleground.js"></script>
 <script>
 //判断是否敲击了Enter键 
 $(document).keyup(function(event){ 
@@ -38,7 +38,7 @@ $(document).ready(function() {
 			alert("验证码错误,请重输!");
 		}else{
 		$.ajax({
-			url:"${pageContext.request.contextPath}/checkLogin.do",
+			url:"/checkLogin.do",
 			type:"post",
 			data:{
 				"username":$("#userName").val(),
@@ -49,7 +49,7 @@ $(document).ready(function() {
 				if(result.tag == 0){
 					alert(result.message);
 				}else{
-					window.location.href="${pageContext.request.contextPath}/index.do";
+					window.location.href="/index.do";
 				}
 			}
 		})  

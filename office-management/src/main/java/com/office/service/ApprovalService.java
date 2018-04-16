@@ -8,7 +8,7 @@ import com.office.entity.ApprovalMember;
 public interface ApprovalService {
 	
 	public int insertApproval(Approval approval);
-	public int doApproval(Approval approval);
+	public int doApproval(Approval approval,String status);
 	public int delApproval(int id);
 	public int delAppByStatus(int status);
 	public List<Approval> AllApproval();

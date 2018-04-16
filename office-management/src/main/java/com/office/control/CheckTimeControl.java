@@ -29,12 +29,17 @@ public class CheckTimeControl {
 	public String toDoCheckSelf() {
 		return "checkOnWork/doCheckSelf";
 	}
-	
+
 	private int returnEmpId(HttpServletRequest request) {
 		Object empId = request.getSession().getAttribute("emp_id");
 		String emp_id =empId != null ?empId.toString():null;
 		int parseInt = Integer.parseInt(emp_id);
 		return parseInt;
+	}
+	
+	@RequestMapping("toCheckTimeAll.do")
+	public String toCheckAll() {
+		return "checkOnWork/allCheck";
 	}
 	
 	@RequestMapping("doCheck.do")
@@ -73,9 +78,12 @@ public class CheckTimeControl {
 	@RequestMapping("checkTimeAll.do")
 	@ResponseBody
 	public DataTables checkTimeAll(String time, int start, int length) {
-		ckService.searchCheckTimeByTime(time,start,length);
+		List<CheckTime> searchCheckTimeByTime = ckService.searchCheckTimeByTime(time,start,length);
+		int searchCountAll = (int)ckService.searchCountAll(time);
 		DataTables dt = new DataTables();
+		dt.setData(searchCheckTimeByTime);
+		dt.setRecordsFiltered(searchCountAll);
+		dt.setRecordsTotal(searchCountAll);
 		return dt;
 	}
-	
 }

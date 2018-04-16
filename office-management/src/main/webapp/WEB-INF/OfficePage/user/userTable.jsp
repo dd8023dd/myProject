@@ -3,14 +3,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/bootstrap/js/jquery.js"></script>
-<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/bootstrap/js/bootbox.min.js"></script>
-<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/bootstrap/js/dataTable.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/myTables.js"></script>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/bootstrap/css/dataTable.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/MyDataTable.css">
+<script type="text/javascript" charset="utf8" src="/static/bootstrap/js/jquery.js"></script>
+<script type="text/javascript" charset="utf8" src="/static/bootstrap/js/bootbox.min.js"></script>
+<script type="text/javascript" charset="utf8" src="/static/bootstrap/js/dataTable.js"></script>
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/myTables.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/bootstrap/css/dataTable.css">
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/static/css/MyDataTable.css">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>员工表</title>
 <script type="text/javascript">
@@ -20,7 +20,7 @@ $(document).ready(function(){
 		createTable_User();
 	});
 	$("#addNewUser").click(function(){
-		add("新增用户","${pageContext.request.contextPath}/user/toAddUser.do");
+		add("新增用户","/user/toAddUser.do");
 	});
 });
 </script>

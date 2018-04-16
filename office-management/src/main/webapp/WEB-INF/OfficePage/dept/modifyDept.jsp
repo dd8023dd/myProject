@@ -8,7 +8,7 @@
 <script type="text/javascript">
 $("#btnModifyDept").click(function(){
 	$.ajax({
-		url : "${pageContext.request.contextPath}/dept/modifyDept.do",
+		url : "/dept/modifyDept.do",
 		type : "post",
 		data : $("#frmModifyDept").serialize(),
 		dataType : "json",

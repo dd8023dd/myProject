@@ -3,7 +3,7 @@
 var tab;
 
 layui.config({
-    base: '/office-management/static/js/',
+    base: '/static/js/',
     version: new Date().getTime()
 }).use(['element', 'layer', 'navbar', 'tab'], function () {
     var element = layui.element(),
@@ -190,7 +190,7 @@ function lock($, layer) {
             //do something...
             //e.g. 
 
-            $.getJSON('/office-management/unlock.do', null, function (res) {
+            $.getJSON('/unlock.do', null, function (res) {
                 if (!res.rel) {
                     layer.msg(res.msg);
                 }
@@ -219,7 +219,7 @@ function lock($, layer) {
             var unlock = function (un, pwd) {
                 console.log(un, pwd);
                 //这里可以使用ajax方法解锁
-                $.post('/office-management/unlock.do', { userName: un, password: pwd }, function (res) {
+                $.post('/unlock.do', { userName: un, password: pwd }, function (res) {
                     //验证成功
                     if (res.rel) {
                         //关闭锁屏层

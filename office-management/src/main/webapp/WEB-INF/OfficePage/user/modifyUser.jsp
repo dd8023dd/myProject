@@ -9,7 +9,7 @@
 <script type="text/javascript">
 $("#btnModifyUser").click(function(){
 	$.ajax({
-		url : "${pageContext.request.contextPath}/user/modifyUser.do",
+		url : "/user/modifyUser.do",
 		type : "post",
 		data : $("#frmModifyUser").serialize(),
 		dataType : "json",

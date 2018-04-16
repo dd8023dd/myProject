@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.eclipse.jetty.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -41,6 +42,11 @@ public class ApprovalControl {
 	@Autowired
 	private ApprovalGroupService agService;
 	
+	@RequestMapping("toAllApprovalTable.do")
+	public String toAllApprovalTable() {
+		return "approval/allApprovalInfo";
+	}
+	
 	@RequestMapping("toAddApprovalGroupMember.do")
 	public String toAddApprovalGroupMember() {
 		return "approval/addApprovalGroupMember";
@@ -73,6 +79,30 @@ public class ApprovalControl {
 		List<ApprovalGroup> searchAllApprovalGroup = agService.searchAllApprovalGroup();
 		result.setTag(searchAllApprovalGroup);
 		return result;
+	}
+	
+	@RequestMapping("allAskToLeave.do")
+	@ResponseBody
+	public DataTables allAskToLeave(int start,int length) {
+		DataTables dt = new DataTables();
+		List<AskToLeave> searchAllLeaveS = LeaveService.searchAllLeaveS(start,length);
+		int count = LeaveService.searchLeaveCount();
+		dt.setData(searchAllLeaveS);
+		dt.setRecordsFiltered(count);
+		dt.setRecordsTotal(count);
+		return dt;
+	}
+	
+	@RequestMapping("allExtraWork.do")
+	@ResponseBody
+	public DataTables allExtraWork(int start,int length) {
+		DataTables dt = new DataTables();
+		List<ExtraWork> list = workService.searchAllExtraWorkS(start,length);
+		int count = workService.searchCountAll();
+		dt.setData(list);
+		dt.setRecordsFiltered(count);
+		dt.setRecordsTotal(count);
+		return dt;
 	}
 	
 	@RequestMapping("myAcceptApproval.do")
@@ -289,9 +319,11 @@ public class ApprovalControl {
 	
 	@RequestMapping("doApproval.do")
 	@ResponseBody
-	public AjaxResult doApproval(Approval approval) {
+	//根据传入值判断操作status 1:pass 0:refuse
+	public AjaxResult doApproval(int approvalId,String status) {
 		AjaxResult result = new AjaxResult();
-		int doApproval = appService.doApproval(approval);
+		Approval approval = appService.searchApprovalByApprovalId(approvalId);
+		int doApproval = appService.doApproval(approval,status);
 		result.setTag(doApproval);
 		result.setMessage(doApproval>0?"审批成功":"审批失败");
 		return result;

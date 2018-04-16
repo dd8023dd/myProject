@@ -8,7 +8,7 @@
 <script type="text/javascript">
 $("#btnAddMtR").click(function(){
 	$.ajax({
-		url : "${pageContext.request.contextPath}/meeting/addMeetingRoom.do",
+		url : "/meeting/addMeetingRoom.do",
 		type : "post",
 		data : $("#frmAddMtR").serialize(),
 		dataType : "json",

@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,32 +12,35 @@
 <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/static/css/MyDataTable.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>会议表</title>
+<title>打卡信息管理表</title>
 <script type="text/javascript">
 $(document).ready(function(){
-	createTable_Meeting();
-});
+	datatable_AllCheck();
+	$("#searchCheck").click(function(){
+		datatable_AllCheck();
+	})
+})
 </script>
 </head>
 <body>
-<div style="width:280px;">
-	<div class="input-group">
-       	<input class="form-control input"/>
-		<span class="input-group-btn">
-			<button type="button" class="btn btn-info">搜索</button>
-    	</span>
-	</div>
+<div class="form-horizontal">
+	<div style="width:380px;">
+		<div class="input-group">
+        	<input type="date" id="CheckTimeSearch" class="form-control input" />
+            <span class="input-group-btn">
+					<button type="button" id="searchCheck" class="btn btn-info">搜索</button>
+            </span>
+        </div>
+     </div>
 </div>
-<table id="datatable_meeting"  class="display" cellspacing="0" style="width:100%">
+<table id="datatable_allCheck"  class="display" cellspacing="0" style="width:100%">
 	<thead>
 		<tr>
-			<th>ID</th>
-			<th>会议名</th>
-			<th>会议室</th>
-			<th>与会员工</th>
-			<th>开始时间</th>
-			<th>预约时长</th>
-			<th>发起人</th>
+			<th>打卡日期</th>
+			<th>员工</th>
+			<th>打卡状态</th>
+			<th>签到时间</th>
+			<th>签退时间</th>
 		</tr>
 	</thead>
 </table>

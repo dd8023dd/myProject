@@ -3,14 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/bootstrap/js/jquery.js"></script>
-<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/bootstrap/js/bootbox.min.js"></script>
-<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/bootstrap/js/dataTable.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/myTables.js"></script>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/bootstrap/css/dataTable.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/MyDataTable.css">
+<script type="text/javascript" charset="utf8" src="/static/bootstrap/js/jquery.js"></script>
+<script type="text/javascript" charset="utf8" src="/static/bootstrap/js/bootbox.min.js"></script>
+<script type="text/javascript" charset="utf8" src="/static/bootstrap/js/dataTable.js"></script>
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/myTables.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/bootstrap/css/dataTable.css">
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/static/css/MyDataTable.css">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>员工表</title>
 <script type="text/javascript">
@@ -20,7 +20,7 @@ $(document).ready(function(){
 		createTable_Emp();
 	});
 	$("#addNewEmp").click(function(){
-		add("新增员工","${pageContext.request.contextPath}/employee/toAddEmp.do");
+		add("新增员工","/employee/toAddEmp.do");
 	});
 });
 </script>

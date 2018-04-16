@@ -10,6 +10,8 @@ public interface ExtraWorkService {
 	public int approvalExtraWork(ExtraWork extraWork);
 	public int delExtraWork(int extraWork_id);
 	public List<ExtraWork> searchAllExtraWork();
+	public List<ExtraWork> searchAllExtraWorkS(int start,int end);
+	public int searchCountAll();
 	public List<ExtraWork> searchExtraWorkByTime(String time);
 	public List<ExtraWork> searchExtraWorkByEmp(int emp_id,int start,int end);
 	public long searchExtraWorkCountByEmp(int emp_id);

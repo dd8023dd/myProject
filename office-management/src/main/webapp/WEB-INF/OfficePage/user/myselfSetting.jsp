@@ -3,15 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/bootstrap/js/jquery.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css">
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" charset="utf8" src="/static/bootstrap/js/jquery.js"></script>
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>个人设置</title>
 <script type="text/javascript">
 $(document).ready(function(){
 	$.ajax({
-		url:"${pageContext.request.contextPath}/user/searchByUserName.do",
+		url:"/user/searchByUserName.do",
 		type:"post",
 		dataType:"json",
 		success:function(result){

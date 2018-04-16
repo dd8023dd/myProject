@@ -3,16 +3,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/bootstrap/js/jquery.js"></script>
-<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/js/jquery.flipcountdown.js"></script>
-<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/bootstrap/js/bootbox.min.js"></script>
-<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/bootstrap/js/dataTable.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/myTables.js"></script>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/bootstrap/css/dataTable.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/jquery.flipcountdown.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/MyDataTable.css">
+<script type="text/javascript" charset="utf8" src="/static/bootstrap/js/jquery.js"></script>
+<script type="text/javascript" charset="utf8" src="/static/js/jquery.flipcountdown.js"></script>
+<script type="text/javascript" charset="utf8" src="/static/bootstrap/js/bootbox.min.js"></script>
+<script type="text/javascript" charset="utf8" src="/static/bootstrap/js/dataTable.js"></script>
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/myTables.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/bootstrap/css/dataTable.css">
+<link rel="stylesheet" type="text/css" href="/static/css/jquery.flipcountdown.css">
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/static/css/MyDataTable.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>个人考勤记录表</title>
 <script type="text/javascript">
@@ -21,7 +21,7 @@ $(document).ready(function(){
 	$('#retroclockbox1').flipcountdown();
 	$("#checkTime").click(function(){
 		$.ajax({
-			url:"${pageContext.request.contextPath}/checkOnWork/doCheck.do",
+			url:"/checkOnWork/doCheck.do",
 			type:"post",
 			dataType:"json",
 			success:function(result) {
@@ -34,6 +34,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
+
 <div class="col-sm-9">
 <table id="datatable_checkTimeSe"  class="table" style="width:100%">
 	<thead>

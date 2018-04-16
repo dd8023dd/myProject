@@ -14,4 +14,5 @@ public interface CheckTimeService {
 	public List<CheckTime> searchCheckTimeByEmp(int emp_id);
 	public int searchCheckTimeCountByEmp(int emp_id);
 	public List<CheckTime> searchCheckTimeByStatus(int status);
+	public long searchCountAll(String time);
 }

@@ -3,18 +3,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/bootstrap/js/jquery.js"></script>
-<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/bootstrap/js/bootbox.min.js"></script>
-<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/bootstrap/js/dataTable.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/bootstrap/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/bootstrap/css/dataTable.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css">
+<script type="text/javascript" charset="utf8" src="/static/bootstrap/js/jquery.js"></script>
+<script type="text/javascript" charset="utf8" src="/static/bootstrap/js/bootbox.min.js"></script>
+<script type="text/javascript" charset="utf8" src="/static/bootstrap/js/dataTable.js"></script>
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/bootstrap/css/dataTable.css">
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>请假审批</title>
 <script type="text/javascript">
 $(document).ready(function(){
 	$.ajax({//ajax加载审批组数据
-		url : "${pageContext.request.contextPath}/approval/approvalGroupList.do",
+		url : "/approval/approvalGroupList.do",
 		type : "post",
 		dataType : "json",
 		success : function(result) {
@@ -33,7 +33,7 @@ $(document).ready(function(){
 })
 function askto() {
 	$.ajax({
-		url:"${pageContext.request.contextPath}/approval/doAskToLeave.do",
+		url:"/approval/doAskToLeave.do",
 		dataType : "json",
 		type : "post",
 		data :$("#frmToLeave").serialize(),

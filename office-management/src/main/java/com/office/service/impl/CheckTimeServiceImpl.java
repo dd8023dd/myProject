@@ -89,6 +89,7 @@ public class CheckTimeServiceImpl implements CheckTimeService{
 
 	@Override
 	public List<CheckTime> searchCheckTimeByTime(String time,int start,int length) {
+		if("".equals(time) || time == null) {return ctMapper.selectByExample(null);}
 		CheckTimeExample example = new CheckTimeExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andCheckTimeDataEqualTo(time);
@@ -96,7 +97,7 @@ public class CheckTimeServiceImpl implements CheckTimeService{
 		example.setEnd(length);
 		return ctMapper.selectByExample(example);
 	}
-
+	
 	@Override
 	public List<CheckTime> searchCheckTimeByEmp(int emp_id) {
 		CheckTimeExample example = new CheckTimeExample();
@@ -143,6 +144,21 @@ public class CheckTimeServiceImpl implements CheckTimeService{
 		criteria.andCheckTimeDataEqualTo(time);
 		criteria.andCheckTimeEmpidEqualTo(emp_id);
 		return ctMapper.selectByExample(example);
+	}
+
+	/* 
+	 * 查询所有签到表
+	 * @parameter 
+	 * @return 
+	 * @see com.office.service.CheckTimeService#searchCountAll()
+	 */
+	@Override
+	public long searchCountAll(String time) {
+		if("".equals(time) || time == null) {return ctMapper.countByExample(null);}
+		CheckTimeExample example = new CheckTimeExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andCheckTimeDataEqualTo(time);
+		return ctMapper.countByExample(example);
 	}
 
 }

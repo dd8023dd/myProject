@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title></title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/plugins/layui/css/layui.css"
+	href="/static/plugins/layui/css/layui.css"
 	media="all" />
 <style type="text/css">
 .admin-main {
@@ -21,7 +21,7 @@
 	padding: 5px 0;
 }
 </style>
-	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/static/bootstrap/js/jquery.js"></script>
+	<script type="text/javascript" charset="utf8" src="/static/bootstrap/js/jquery.js"></script>
 </head>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -29,7 +29,7 @@ $(document).ready(function(){
 })
 function isBirthday(){
 	$.ajax({
-		url:"${pageContext.request.contextPath}/isBirthday.do",
+		url:"/isBirthday.do",
 		type:"post",
 		dataType:"json",
 		success:function(result) {

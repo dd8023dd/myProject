@@ -10,8 +10,10 @@ public interface AskToLeaveService {
 	public int delLeave(int leave_id);
 	public int delLeaveByApprovalId(int approval_id);
 	public List<AskToLeave> searchAllLeave();
+	public List<AskToLeave> searchAllLeaveS(int start,int length);
 	public List<AskToLeave> searchLeaveByEmp(int emp_id,int start,int length);
 	public int searchLeaveByEmpCount(int emp_id);
+	public int searchLeaveCount();
 	public List<AskToLeave> searchLeaceByLeaveTime(String time);
 	public AskToLeave searchByLeaveId(int leave_id);
 	public AskToLeave searchByApprovalId(int approval_id);

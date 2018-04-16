@@ -8,7 +8,7 @@
 <script type="text/javascript">
 $("#btnAddUser").click(function(){
 	$.ajax({
-		url : "${pageContext.request.contextPath}/doRegister.do",
+		url : "/doRegister.do",
 		type : "post",
 		data : $("#frmAddUser").serialize(),
 		dataType : "json",

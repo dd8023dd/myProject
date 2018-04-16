@@ -3,7 +3,6 @@
  * @author zhangmj
  * @date 2018-03-07 15:13
  */
-
 var datatable_empPhone = null;
 
 function createTable_EmpPhone(){
@@ -15,13 +14,13 @@ function createTable_EmpPhone(){
 		searching:false,
 		ordering:false,
 		language:{
-			url:'/office-management/static/bootstrap/js/china.json'
+			url:'/static/bootstrap/js/china.json'
 		},
 		iDisplayLength :12,//用于指定一屏显示的条数，需开启分页器
 		serverSide:true,//开启服务器模式
 		//数据来源（分页排序过滤）
 		ajax:{
-			url:'/office-management/employee/empPage.do',
+			url:'/employee/empPage.do',
 	 	 	dataSrc:"data",
 	 	 	data : {
 	 	 		'empName':$("#searchEmpName").val()
@@ -48,13 +47,13 @@ function createTable_Emp(){
 		searching:false,
 		ordering:false,
 		language:{
-			url:'/office-management/static/bootstrap/js/china.json'
+			url:'/static/bootstrap/js/china.json'
 		},
 		iDisplayLength :12,//用于指定一屏显示的条数，需开启分页器
 		serverSide:true,//开启服务器模式
 		//数据来源（分页排序过滤）
 		ajax:{
-			url:'/office-management/employee/empPage.do',
+			url:'/employee/empPage.do',
 	 	 	dataSrc:"data",
 	 	 	data : {
 	 	 		'empName':$("#searchEmpName").val()
@@ -79,8 +78,8 @@ function createTable_Emp(){
 				}
 			}},
 			{data:'empId',render:function(data,type,row){
-				return "<a href='javascript:del(\"emp\","+data+",\"/office-management/employee/delEmp.do\");'>删除</a>&nbsp;"
-				+"<a href='javascript:modify(\"emp\","+JSON.stringify(row)+","+data+",\"修改员工信息\",\"/office-management/employee/toModifyEmp.do\");'>修改</a>"
+				return "<a href='javascript:del(\"emp\","+data+",\"/employee/delEmp.do\");'>删除</a>&nbsp;"
+				+"<a href='javascript:modify(\"emp\","+JSON.stringify(row)+","+data+",\"修改员工信息\",\"/employee/toModifyEmp.do\");'>修改</a>"
 			}}
 		] 
 	});
@@ -97,13 +96,13 @@ function createTable_User(){
 		searching:false,
 		ordering:false,
 		language:{
-			url:'/office-management/static/bootstrap/js/china.json'
+			url:'/static/bootstrap/js/china.json'
 		},
 		iDisplayLength :12,//用于指定一屏显示的条数，需开启分页器 d
 		serverSide:true,//开启服务器模式
 		//数据来源（分页排序过滤）
 		ajax:{
-			url:'/office-management/user/userPage.do',
+			url:'/user/userPage.do',
 	 	 	dataSrc:"data",
 	 	 	type:"post",
 	 	 	data:{
@@ -115,8 +114,8 @@ function createTable_User(){
 			{data:'userName'},
 			{data:'emp.empName'},
 			{data:'userId',render:function(data,type,row){
-				return "<a href='javascript:del(\"user\","+data+",\"/office-management/user/delUser.do\");'>删除</a>&nbsp;"
-				+"<a href='javascript:modify(\"user\","+JSON.stringify(row)+","+data+",\"修改用户信息\",\"/office-management/user/toModifyUser.do\");'>修改</a>"
+				return "<a href='javascript:del(\"user\","+data+",\"/user/delUser.do\");'>删除</a>&nbsp;"
+				+"<a href='javascript:modify(\"user\","+JSON.stringify(row)+","+data+",\"修改用户信息\",\"/user/toModifyUser.do\");'>修改</a>"
 			}}
 		] 
 	});
@@ -132,13 +131,13 @@ function createTable_Dept(){
 		searching:false,
 		ordering:false,
 		language:{
-			url:'/office-management/static/bootstrap/js/china.json'
+			url:'/static/bootstrap/js/china.json'
 		},
 		iDisplayLength :12,//用于指定一屏显示的条数，需开启分页器
 		serverSide:true,//开启服务器模式
 		//数据来源（分页排序过滤）
 		ajax:{
-			url:'/office-management/dept/deptPage.do',
+			url:'/dept/deptPage.do',
 			data:{
 				"dept_name":$("#deptNameSearch").val()
 			},
@@ -150,8 +149,8 @@ function createTable_Dept(){
 			{data:'deptName'},
 			{data:'deptinfo'},
 			{data:'deptId',render:function(data,type,row){
-				return "<a href='javascript:del(\"dept\","+data+",\"/office-management/dept/delDept.do\");'>删除</a>&nbsp;"
-				+"<a href='javascript:modify(\"dept\","+JSON.stringify(row)+","+data+",\"修改部门信息\",\"/office-management/dept/toModifyDept.do\");'>修改</a>"
+				return "<a href='javascript:del(\"dept\","+data+",\"/dept/delDept.do\");'>删除</a>&nbsp;"
+				+"<a href='javascript:modify(\"dept\","+JSON.stringify(row)+","+data+",\"修改部门信息\",\"/dept/toModifyDept.do\");'>修改</a>"
 			}}
 			] 
 	});
@@ -167,12 +166,12 @@ function createTable_checkTimeSe(){
 		searching:false,
 		ordering:false,
 		language:{
-			url:'/office-management/static/bootstrap/js/china.json'
+			url:'/static/bootstrap/js/china.json'
 		},
 		serverSide:true,//开启服务器模式
 		//数据来源（分页排序过滤）
 		ajax:{
-			url:'/office-management/checkOnWork/checkTimeSeP.do',
+			url:'/checkOnWork/checkTimeSeP.do',
 			dataSrc:"data",
 			type:"post",
 		},
@@ -215,12 +214,12 @@ function createTable_DeptInfo(){
 		searching:false,
 		ordering:false,
 		language:{
-			url:'/office-management/static/bootstrap/js/china.json'
+			url:'/static/bootstrap/js/china.json'
 		},
 		serverSide:true,//开启服务器模式
 		//数据来源（分页排序过滤）
 		ajax:{
-			url:'/office-management/dept/deptPage.do',
+			url:'/dept/deptPage.do',
 			data:{
 				"dept_name":""
 			},
@@ -247,13 +246,13 @@ function createTable_MeetingRoom(isAdmin){
 		searching:false,
 		ordering:false,
 		language:{
-			url:'/office-management/static/bootstrap/js/china.json'
+			url:'/static/bootstrap/js/china.json'
 		},
 		iDisplayLength :12,//用于指定一屏显示的条数，需开启分页器
 		serverSide:true,//开启服务器模式
 		//数据来源（分页排序过滤）
 		ajax:{
-			url:'/office-management/meeting/meetRoomTable.do',
+			url:'/meeting/meetRoomTable.do',
 			data:{
 				"status":$("#MeetingRoomStatus").val()
 			},
@@ -275,8 +274,8 @@ function createTable_MeetingRoom(isAdmin){
 				if(!isAdmin){
 					return "没有权限";
 				}else{
-					return "<a href='javascript:del(\"meetRoom\","+data+",\"/office-management/meeting/delMeetingRoom.do\");'>删除</a>&nbsp;"
-					+"<a href='javascript:modify(\"meetRoom\","+JSON.stringify(row)+","+data+",\"修改会议室信息\",\"/office-management/meeting/toModifyMeetingRoom.do\");'>修改</a>"
+					return "<a href='javascript:del(\"meetRoom\","+data+",\"/meeting/delMeetingRoom.do\");'>删除</a>&nbsp;"
+					+"<a href='javascript:modify(\"meetRoom\","+JSON.stringify(row)+","+data+",\"修改会议室信息\",\"/meeting/toModifyMeetingRoom.do\");'>修改</a>"
 				}
 				
 			}}
@@ -295,13 +294,13 @@ function createTable_Meeting(){
 		searching:false,
 		ordering:false,
 		language:{
-			url:'/office-management/static/bootstrap/js/china.json'
+			url:'/static/bootstrap/js/china.json'
 		},
 		iDisplayLength :12,//用于指定一屏显示的条数，需开启分页器
 		serverSide:true,//开启服务器模式
 		//数据来源（分页排序过滤）
 		ajax:{
-			url:'/office-management/meeting/meetingTable.do',
+			url:'/meeting/meetingTable.do',
 			data:{
 				"meetingName":$("#meetingNameSearch").val()
 			},
@@ -336,13 +335,13 @@ function createTable_myMeeting(){
 		searching:false,
 		ordering:false,
 		language:{
-			url:'/office-management/static/bootstrap/js/china.json'
+			url:'/static/bootstrap/js/china.json'
 		},
 		iDisplayLength :12,//用于指定一屏显示的条数，需开启分页器
 		serverSide:true,//开启服务器模式
 		//数据来源（分页排序过滤）
 		ajax:{
-			url:'/office-management/meeting/myMeeting.do',
+			url:'/meeting/myMeeting.do',
 			dataSrc:"data",
 			type:"post",
 		},
@@ -353,8 +352,8 @@ function createTable_myMeeting(){
 			{data:'date'},
 			{data:'bookingTime'},
 			{data:'meetingId',render:function(data,type,row){
-				return "<a href='javascript:del(\"myMeeting\","+data+",\"/office-management/meeting/delMeeting.do\");'>删除</a>&nbsp;"
-				+"<a href='javascript:modify(\"myMeeting\","+JSON.stringify(row)+","+data+",\"修改会议信息\",\"/office-management/meeting/toModifyMeeting.do\");'>修改</a>"
+				return "<a href='javascript:del(\"myMeeting\","+data+",\"/meeting/delMeeting.do\");'>删除</a>&nbsp;"
+				+"<a href='javascript:modify(\"myMeeting\","+JSON.stringify(row)+","+data+",\"修改会议信息\",\"/meeting/toModifyMeeting.do\");'>修改</a>"
 			}}
 			] 
 	});
@@ -370,13 +369,13 @@ function createTable_ExtraWork(){
 		searching:false,
 		ordering:false,
 		language:{
-			url:'/office-management/static/bootstrap/js/china.json'
+			url:'/static/bootstrap/js/china.json'
 		},
 		iDisplayLength :12,//用于指定一屏显示的条数，需开启分页器
 		serverSide:true,//开启服务器模式
 		//数据来源（分页排序过滤）
 		ajax:{
-			url:'/office-management/approval/workTable.do',
+			url:'/approval/workTable.do',
 			dataSrc:"data",
 			type:"post",
 		},
@@ -398,8 +397,8 @@ function createTable_ExtraWork(){
 				}
 			}},
 			{data:'extraWorkId',render:function(data,type,row){
-				return "<a href='javascript:del(\"myMeeting\","+data+",\"/office-management/meeting/delMeeting.do\");'>删除</a>&nbsp;"
-				+"<a href='javascript:modify(\"myMeeting\","+JSON.stringify(row)+","+data+",\"修改会议信息\",\"/office-management/meeting/toModifyMeeting.do\");'>修改</a>"
+				return "<a href='javascript:del(\"myMeeting\","+data+",\"/meeting/delMeeting.do\");'>删除</a>&nbsp;"
+				+"<a href='javascript:modify(\"myMeeting\","+JSON.stringify(row)+","+data+",\"修改会议信息\",\"/meeting/toModifyMeeting.do\");'>修改</a>"
 			}}
 			] 
 	});
@@ -415,13 +414,13 @@ function createTable_AskToLeave(){
 		searching:false,
 		ordering:false,
 		language:{
-			url:'/office-management/static/bootstrap/js/china.json'
+			url:'/static/bootstrap/js/china.json'
 		},
 		iDisplayLength :12,//用于指定一屏显示的条数，需开启分页器
 		serverSide:true,//开启服务器模式
 		//数据来源（分页排序过滤）
 		ajax:{
-			url:'/office-management/approval/myAskToLeaveTable.do',
+			url:'/approval/myAskToLeaveTable.do',
 			dataSrc:"data",
 			type:"post",
 		},
@@ -446,8 +445,8 @@ function createTable_AskToLeave(){
 				}
 			}},
 			{data:'leaveId',render:function(data,type,row){
-				return "<a href='javascript:del(\"myMeeting\","+data+",\"/office-management/meeting/delMeeting.do\");'>删除</a>&nbsp;"
-				+"<a href='javascript:modify(\"myMeeting\","+JSON.stringify(row)+","+data+",\"修改会议信息\",\"/office-management/meeting/toModifyMeeting.do\");'>修改</a>"
+				return "<a href='javascript:del(\"myMeeting\","+data+",\"/meeting/delMeeting.do\");'>删除</a>&nbsp;"
+				+"<a href='javascript:modify(\"myMeeting\","+JSON.stringify(row)+","+data+",\"修改会议信息\",\"/meeting/toModifyMeeting.do\");'>修改</a>"
 			}}
 			] 
 	});
@@ -463,13 +462,13 @@ function createTable_ExtraWorkWaitProval(){
 		searching:false,
 		ordering:false,
 		language:{
-			url:'/office-management/static/bootstrap/js/china.json'
+			url:'/static/bootstrap/js/china.json'
 		},
 		iDisplayLength :12,//用于指定一屏显示的条数，需开启分页器
 		serverSide:true,//开启服务器模式
 		//数据来源（分页排序过滤）
 		ajax:{
-			url:'/office-management/approval/myAcceptApprovalExw.do',
+			url:'/approval/myAcceptApprovalExw.do',
 			dataSrc:"data",
 			type:"post",
 		},
@@ -490,13 +489,39 @@ function createTable_ExtraWorkWaitProval(){
 					return "状态异常"
 				}
 			}},
-			{data:'extraWorkId',render:function(data,type,row){
+			{data:'approvalId',render:function(data,type,row){
 				return 	"<div class='btn-group  btn-group-xs'>" +
-						"<button type='button' class='btn btn-info'>通过</button>"+
-						"<button type='button' class='btn btn-info'>拒绝</button>"+
+						"<button type='button' onclick='doApprovalPass("+data+")' class='btn btn-info'>通过</button>"+
+						"<button type='button' onclick='doApprovalRefuse("+data+")' class='btn btn-info'>拒绝</button>"+
 						"</div>";
 				}}
 			] 
+	});
+}
+function doApprovalPass(apId){
+	$.ajax({
+		url : "/approval/doApproval.do",
+		type : "post",
+		data:{
+			"approvalId" : apId,
+			"status":1
+		},
+		success : function(result) {
+			alert(result.message);
+		}
+	});
+}
+function doApprovalRefuse(apId){
+	$.ajax({
+		url : "/approval/doApproval.do",
+		type : "post",
+		data:{
+			"approvalId" : apId,
+			"status":0
+		},
+		success : function(result) {
+			alert(result);
+		}
 	});
 }
 /****************************MyAcceptAskLeaveTable***************************/
@@ -510,13 +535,13 @@ function createTable_AskToLeaveWaitProval(){
 		searching:false,
 		ordering:false,
 		language:{
-			url:'/office-management/static/bootstrap/js/china.json'
+			url:'/static/bootstrap/js/china.json'
 		},
 		iDisplayLength :12,//用于指定一屏显示的条数，需开启分页器
 		serverSide:true,//开启服务器模式
 		//数据来源（分页排序过滤）
 		ajax:{
-			url:'/office-management/approval/myAcceptApproval.do',
+			url:'/approval/myAcceptApproval.do',
 			dataSrc:"data",
 			type:"post",
 		},
@@ -540,10 +565,10 @@ function createTable_AskToLeaveWaitProval(){
 					return "状态异常"
 				}
 			}},
-			{data:'leaveId',render:function(data,type,row){
+			{data:'approvalId',render:function(data,type,row){
 				return "<div class='btn-group btn-group-xs'>" +
-						"<button type='button' class='btn btn-info'>通过</button>"+
-						"<button type='button' class='btn btn-info'>拒绝</button>"+
+						"<button type='button' onclick='doApprovalPass("+data+")' class='btn btn-info'>通过</button>"+
+						"<button type='button' onclick='doApprovalRefuse("+data+")' class='btn btn-info'>拒绝</button>"+
 						"</div>";
 			}}
 			] 
@@ -561,13 +586,13 @@ function createTable_ApprovalGroup(){
 		ordering:false,
 		"paging": false, // 禁止分页
 		language:{
-			url:'/office-management/static/bootstrap/js/china.json'
+			url:'/static/bootstrap/js/china.json'
 		},
 		//iDisplayLength :12,//用于指定一屏显示的条数，需开启分页器
 		serverSide:true,//开启服务器模式
 		//数据来源（分页排序过滤）
 		ajax:{
-			url:'/office-management/approval/approvalGroupTable.do',
+			url:'/approval/approvalGroupTable.do',
 			dataSrc:"data",
 			type:"post",
 		},
@@ -577,7 +602,139 @@ function createTable_ApprovalGroup(){
 			{data:'emp.empPos'},
 			{data:'emp.empPhonenum'},
 			{data:'approvalGroupId',render:function(data){
-				return "<button class='btn btn-info btn-xs' onclick='javascript:del(\"approvalGroupMember\","+data+",\"/office-management/approval/delApprovalGroupMember.do\");'>删除</button>"
+				return "<button class='btn btn-info btn-xs' onclick='javascript:del(\"approvalGroupMember\","+data+",\"/approval/delApprovalGroupMember.do\");'>删除</button>"
+			}}
+			] 
+	});
+}
+/*******************************打卡信息管理表*******************************/
+var datatable_allCheck = null;
+function datatable_AllCheck(){
+	if(datatable_allCheck != null){
+		datatable_allCheck.destroy();
+	}
+	datatable_allCheck = $('#datatable_allCheck').DataTable({
+		bLengthChange: false,//改变每页显示数据量
+		searching:false,
+		ordering:false,
+		language:{
+			url:'/static/bootstrap/js/china.json'
+		},
+		iDisplayLength :12,//用于指定一屏显示的条数，需开启分页器
+		serverSide:true,//开启服务器模式
+		//数据来源（分页排序过滤）
+		ajax:{
+			url:'/checkOnWork/checkTimeAll.do',
+			dataSrc:"data",
+			data:{
+				"time" : $("#CheckTimeSearch").val()
+			},
+			type:"post",
+		},
+		columns:[
+			{data:'checkTimeData'},
+			{data:'checkTimeEmpid'},
+			{data:'checkTimeOut',render:function(data){
+				if(data == 1){
+					return "准时";
+				}else if(data == 0){
+					return "迟到";
+				}else if(data == -1){
+					return "旷工";
+				}else if(data == 2){
+					return "请假";
+				}else if(data == 3){
+					return "早退";
+				}else if(data == 4){
+					return "迟到并早退";
+				}
+			}},
+			{data:'checkTimeFirst'},
+			{data:'checkTimeLeave'}
+			] 
+	});
+}
+/********************************请假审批信息管理表*****************************/
+var datatable_allAskToLeave = null;
+function datatable_AllAskToLeave(){
+	if(datatable_allAskToLeave != null){
+		datatable_allAskToLeave.destroy();
+	}
+	datatable_allAskToLeave = $('#datatable_allAskToLeave').DataTable({
+		bLengthChange: false,//改变每页显示数据量
+		searching:false,
+		ordering:false,
+		language:{
+			url:'/static/bootstrap/js/china.json'
+		},
+		//iDisplayLength :12,//用于指定一屏显示的条数，需开启分页器
+		serverSide:true,//开启服务器模式
+		//数据来源（分页排序过滤）
+		ajax:{
+			url:'/approval/allAskToLeave.do',
+			dataSrc:"data",
+			type:"post",
+		},
+		columns:[
+			{data:'leaveId'},
+			{data:'emp.empName'},
+			{data:'leaveTimeStart'},
+			{data:'leaveTime'},
+			{data:'leaveEvidence',render:function(data){
+				return "<button type='button' class='btn btn-info btn-xs'>查看凭证</button>"
+			}},
+			{data:'leaveReason'},
+			{data:'approval.approvalStatus',render:function(data){
+				if(data == 1){
+					return "待审批";
+				}else if(data == 2){
+					return "已通过";
+				}else if(data == 3){
+					return "未通过";
+				}else{
+					return "状态异常"
+				}
+			}}
+			] 
+	});
+}
+/*******************************加班审批信息管理表************************/
+var datatable_allExtrawork = null;
+function datatable_AllExtrawork(){
+	if(datatable_allExtrawork != null){
+		datatable_allExtrawork.destroy();
+	}
+	datatable_allExtrawork = $('#datatable_allExtrawork').DataTable({
+		bLengthChange: false,//改变每页显示数据量
+		searching:false,
+		ordering:false,
+		language:{
+			url:'/static/bootstrap/js/china.json'
+		},
+		iDisplayLength :12,//用于指定一屏显示的条数，需开启分页器
+		serverSide:true,//开启服务器模式
+		//数据来源（分页排序过滤）
+		ajax:{
+			url:'/approval/allExtraWork.do',
+			dataSrc:"data",
+			type:"post",
+		},
+		columns:[
+			{data:'extraWorkId'},
+			{data:'emp.empName'},
+			{data:'time'},
+			{data:'extraWorkTime'},
+			{data:'isHolidy',render:function(data){if(data==1){return "是"}else{return "否"}}},
+			{data:'approval.approvalStatus',render:function(data){
+				if(data == 1){
+					return "待审批";
+				}else if(data == 2){
+					return "已通过";
+				}else if(data == 3){
+					return "未通过";
+				}else{
+					return "状态异常"
+				}
 			}}
 			] 
 	});

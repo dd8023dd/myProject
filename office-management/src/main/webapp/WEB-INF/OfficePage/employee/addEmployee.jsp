@@ -8,7 +8,7 @@
 <script type="text/javascript">
 $("#btnAddEmp").click(function(){
 	$.ajax({
-		url : "${pageContext.request.contextPath}/employee/addEmp.do",
+		url : "/employee/addEmp.do",
 		type : "post",
 		data : $("#frmAddEmp").serialize(),
 		dataType : "json",

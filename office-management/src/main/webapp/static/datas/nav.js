@@ -5,11 +5,11 @@ var navs = [{
 	"children": [{
 		"title": "个人设置",
 		"icon": "&#xe614;",
-		"href": "/office-management/user/toMyself.do"
+		"href": "/user/toMyself.do"
 	}, {
 		"title": "部门信息",
 		"icon": "&#xe63c;",
-		"href": "/office-management/dept/toDeptInfo.do"
+		"href": "/dept/toDeptInfo.do"
 	}, {
 		"title": "工作日志",
 		"icon": "&#xe63c;",
@@ -18,11 +18,7 @@ var navs = [{
 		"title": "智能报表",
 		"icon": "&#xe629;",
 		"href": "nav.html"
-	}, {
-		"title": "其他设置",
-		"icon": "&#xe631;",
-		"href": "auxiliar.html"
-	}]
+	},]
 }, {
 	"title": "考勤审批",
 	"icon": "&#xe63c",
@@ -30,25 +26,38 @@ var navs = [{
 	"children": [{
 		"title": "打卡签到",
 		"icon": "&#xe605;",
-		"href": "/office-management/checkOnWork/toDoCheckSelf.do"
+		"href": "/checkOnWork/toDoCheckSelf.do"
 	}, {
 		"title": "请假申请",
 		"icon": "&#xe63f;",
-		"href": "/office-management/approval/toAskToLeave.do",
+		"href": "/approval/toAskToLeave.do",
 	}, {
 		"title": "加班申请",
 		"icon": "&#xe63f;",
-		"href": "/office-management/approval/toExtraWork.do"
+		"href": "/approval/toExtraWork.do"
 	}, {
 		"title": "我发起的",
 		"icon": "&#xe609;",
-		"href": "/office-management/approval/toMyApprovalSend.do"
+		"href": "/approval/toMyApprovalSend.do"
 	}, {
 		"title": "我审批的",
 		"icon": "&#xe609;",
-		"href": "/office-management/approval/toMyAccept.do"
+		"href": "/approval/toMyAccept.do"
 	}]
-}, {
+},{
+	"title":"信息中心",
+	"icon": "&#xe611;",
+	"spread": false,
+	"children":[{
+		"title":"审批信息管理",
+		"icon": "&#xe642",
+		"href": "/approval/toAllApprovalTable.do"	
+	},{
+		"title":"考勤信息管理",
+		"icon": "&#xe642",
+		"href": "/checkOnWork/toCheckTimeAll.do"
+	}]
+},{
 	"title": "通讯系统",
 	"icon": "&#xe611;",
 	"spread": false,
@@ -68,19 +77,19 @@ var navs = [{
 	"children": [{
 		"title": "预约会议",
 		"icon": "&#xe608;",
-		"href": "/office-management/meeting/toAddMeeting.do"
+		"href": "/meeting/toAddMeeting.do"
 	},{
 		"title":"我的会议",
 		"icon":"&#xe60f;",
-		"href":"/office-management/meeting/toMyMeeting.do"
+		"href":"/meeting/toMyMeeting.do"
 	},{
 		"title": "查询会议",
 		"icon": "&#xe63f;",
-		"href": "/office-management/meeting/toMeetingTable.do"
+		"href": "/meeting/toMeetingTable.do"
 	},{
 		"title": "会议室查询",
 		"icon": "&#xe63f;",
-		"href": "/office-management/meeting/MTRtableOnlyRead.do"
+		"href": "/meeting/MTRtableOnlyRead.do"
 	}]
 }, {
 	"title": "聊天",
@@ -90,7 +99,7 @@ var navs = [{
 	"children": [{
 		"title": "电话本",
 		"icon": "fa-wechat",
-		"href": "/office-management/employee/toEmpPhone.do"
+		"href": "/employee/toEmpPhone.do"
 	}, {
 		"title": "QQ",
 		"icon": "fa-qq",
@@ -104,15 +113,15 @@ var navs = [{
 	"children": [{
 		"title": "员工管理",
 		"icon": "&#xe612",
-		"href": "/office-management/employee/empTable.do"
+		"href": "/employee/empTable.do"
 	},{
 		"title": "用户管理",
 		"icon": "&#xe612",
-		"href": "/office-management/user/userTable.do"
+		"href": "/user/userTable.do"
 	},{
 		"title": "部门管理",
 		"icon": "&#xe62b",
-		"href": "/office-management/dept/deptTable.do"
+		"href": "/dept/deptTable.do"
 	},{
 		"title": "权限管理",
 		"icon": "&#xe643",
@@ -124,10 +133,10 @@ var navs = [{
 	},{
 		"title":"会议室管理",
 		"icon": "&#xe68e",
-		"href": "/office-management/meeting/toMeetingRoomTable.do"
+		"href": "/meeting/toMeetingRoomTable.do"
 	},{
 		"title":"审批组管理",
 		"icon": "&#xe642",
-		"href": "/office-management/approval/toApprovalGroupTable.do"
+		"href": "/approval/toApprovalGroupTable.do"
 	}]
 }];
