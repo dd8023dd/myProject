@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.eclipse.jetty.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -108,12 +109,12 @@ public class LoginControl {
 	@ResponseBody
 	public AjaxResult register(User user) {
 		int res = -1;
-		user.setUserPassword(base64Encode(user.getUserPassword()));
 		//验证用户名密码非空
 		if(user != null && user.getUserName() != null && user.getUserPassword() != null &&
-			!"".equals(user.getUserName()) && !"".equals(user.getUserPassword())) {
-			res = u_s.insertUser(user);
-		}
+				!"".equals(user.getUserName()) && !"".equals(user.getUserPassword())) {
+				user.setUserPassword(base64Encode(user.getUserPassword()));
+				res = u_s.insertUser(user);
+			}
 		AjaxResult ajaxResult = new AjaxResult();
 		ajaxResult.setTag(res);
 		if(res == -2) {
@@ -130,7 +131,7 @@ public class LoginControl {
 	 * Base64编码
 	 */
 	public String base64Encode(String password) {
-		if(!"".equals(password) && password != null) { 
+		if(StringUtil.isNotBlank(password)) { 
 			byte Bpassword[] = password.getBytes();
 			password = Base64.getEncoder().encodeToString(Bpassword);
 		}

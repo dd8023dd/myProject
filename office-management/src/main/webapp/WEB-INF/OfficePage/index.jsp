@@ -3,6 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript">  
+var sessionName="<%=session.getAttribute("username")%>";
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Office-System</title>
 	<meta name="renderer" content="webkit">

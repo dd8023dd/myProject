@@ -17,7 +17,7 @@ public interface CheckTimeMapper {
     int insertSelective(CheckTime record);
 
     List<CheckTime> selectByExample(CheckTimeExample example);
-    List<CheckTime> selectByExamplePage(CheckTimeExample example);
+    List<CheckTime> selectByExample1(CheckTimeExample example);
 
     CheckTime selectByPrimaryKey(Integer checkTimeId);
 

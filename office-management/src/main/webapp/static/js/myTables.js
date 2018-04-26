@@ -430,7 +430,7 @@ function createTable_AskToLeave(){
 			{data:'leaveTimeStart'},
 			{data:'leaveTime'},
 			{data:'leaveEvidence',render:function(data){
-				return "<button type='button' class='btn btn-info btn-xs'>查看凭证</button>"
+				return "<button type='button' onclick='LookLeaveEvidence("+data+");' class='btn btn-info btn-xs'>查看凭证</button>"
 			}},
 			{data:'leaveReason'},
 			{data:'approval.approvalStatus',render:function(data){
@@ -449,6 +449,12 @@ function createTable_AskToLeave(){
 				+"<a href='javascript:modify(\"myMeeting\","+JSON.stringify(row)+","+data+",\"修改会议信息\",\"/meeting/toModifyMeeting.do\");'>修改</a>"
 			}}
 			] 
+	});
+}
+function LookLeaveEvidence(data){
+	bootbox.dialog({
+		"title":"请假凭证",
+		"message":"<img width='100%' height='400' src='"+data+"'/>"
 	});
 }
 /****************************ExtraWorkTable**************************/
@@ -501,6 +507,7 @@ function createTable_ExtraWorkWaitProval(){
 function doApprovalPass(apId){
 	$.ajax({
 		url : "/approval/doApproval.do",
+		dataType:"json",
 		type : "post",
 		data:{
 			"approvalId" : apId,
@@ -514,6 +521,7 @@ function doApprovalPass(apId){
 function doApprovalRefuse(apId){
 	$.ajax({
 		url : "/approval/doApproval.do",
+		dataType:"json",
 		type : "post",
 		data:{
 			"approvalId" : apId,
@@ -551,7 +559,7 @@ function createTable_AskToLeaveWaitProval(){
 			{data:'leaveTimeStart'},
 			{data:'leaveTime'},
 			{data:'leaveEvidence',render:function(data){
-				return "<button type='button' class='btn btn-info btn-xs'>查看凭证</button>"
+				return "<button type='button' onclick='LookLeaveEvidence("+data+");' class='btn btn-info btn-xs'>查看凭证</button>"
 			}},
 			{data:'leaveReason'},
 			{data:'approval.approvalStatus',render:function(data){
@@ -625,15 +633,16 @@ function datatable_AllCheck(){
 		//数据来源（分页排序过滤）
 		ajax:{
 			url:'/checkOnWork/checkTimeAll.do',
-			dataSrc:"data",
+			type:"post"	,
 			data:{
-				"time" : $("#CheckTimeSearch").val()
-			},
-			type:"post",
+				"checkTimeOut":$("#checkTimeOut").val(),
+				"checkTimeData":$("#checkTimeData").val(),
+				"checkTimeEmpid":$("#checkTimeEmpid").val()
+				}
 		},
 		columns:[
 			{data:'checkTimeData'},
-			{data:'checkTimeEmpid'},
+			{data:'empName'},
 			{data:'checkTimeOut',render:function(data){
 				if(data == 1){
 					return "准时";
@@ -654,6 +663,22 @@ function datatable_AllCheck(){
 			] 
 	});
 }
+//生成excel文件并下载
+//function downloadExcel(){
+//	$.ajax({
+//		url:'/checkOnWork/exprotExcel.do',
+//		type:"post",
+//		data:{
+//			"checkTimeOut":$("#checkTimeOut").val(),
+//			"checkTimeData":$("#checkTimeData").val(),
+//			"checkTimeEmpid":$("#checkTimeEmpid").val()
+//			},
+//		dataType:"json",
+//		success:function(res){
+//			alert(res.message);
+//		}
+//	});
+//}
 /********************************请假审批信息管理表*****************************/
 var datatable_allAskToLeave = null;
 function datatable_AllAskToLeave(){
@@ -681,7 +706,7 @@ function datatable_AllAskToLeave(){
 			{data:'leaveTimeStart'},
 			{data:'leaveTime'},
 			{data:'leaveEvidence',render:function(data){
-				return "<button type='button' class='btn btn-info btn-xs'>查看凭证</button>"
+				return "<button type='button' onclick='LookLeaveEvidence("+data+");' class='btn btn-info btn-xs'>查看凭证</button>"
 			}},
 			{data:'leaveReason'},
 			{data:'approval.approvalStatus',render:function(data){

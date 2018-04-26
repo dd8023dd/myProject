@@ -23,16 +23,23 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<div class="form-horizontal">
-	<div style="width:380px;">
+<form id="CheckTimeSearch" class="form-inline" action="/checkOnWork/exprotExcel.do" method="post">
+	<div class="form-group">
 		<div class="input-group">
-        	<input type="date" id="CheckTimeSearch" class="form-control input" />
+        	<select name="checkTimeOut" id="checkTimeOut" class="form-control"style="width: 200px;">
+        		<option value="">请选择打卡状态</option>
+        		<option value="0">迟到</option>
+        		<option value="3">早退</option>
+        	</select>
+        	<input type="date" name="checkTimeData" id="checkTimeData" class="form-control" style="width: 200px;"/>
+        	<input type="text" name="checkTimeEmpid" id="checkTimeEmpid" class="form-control"style="width: 200px;" placeholder="请输入员工id"/>
             <span class="input-group-btn">
 					<button type="button" id="searchCheck" class="btn btn-info">搜索</button>
+					<button type="submit" class="btn btn-info">导出Excel表</button>
             </span>
         </div>
      </div>
-</div>
+</form>
 <table id="datatable_allCheck"  class="display" cellspacing="0" style="width:100%">
 	<thead>
 		<tr>

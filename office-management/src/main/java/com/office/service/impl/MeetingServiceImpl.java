@@ -124,7 +124,6 @@ public class MeetingServiceImpl implements MeetingService{
 		if(searchMeetingByMeetingRoomId.size()>0) {
 			for (Meeting meetingList : searchMeetingByMeetingRoomId) {
 				if(meetingList.getMeetingId().equals(meeting.getMeetingId())) {
-					System.out.println("这里打断了");
 					continue;
 				}
 				otherBookTime= meetingList.getBookingTime() * 3600000;

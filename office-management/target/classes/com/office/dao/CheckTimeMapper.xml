@@ -9,6 +9,15 @@
     <result column="check_time_first" jdbcType="VARCHAR" property="checkTimeFirst" />
     <result column="check_time_leave" jdbcType="VARCHAR" property="checkTimeLeave" />
   </resultMap>
+  <resultMap id="BaseResultMapE" type="com.office.entity.CheckTime">
+    <id column="check_time_id" jdbcType="INTEGER" property="checkTimeId" />
+    <result column="check_time_data" jdbcType="VARCHAR" property="checkTimeData" />
+    <result column="check_time_empid" jdbcType="INTEGER" property="checkTimeEmpid" />
+    <result column="check_time_out" jdbcType="INTEGER" property="checkTimeOut" />
+    <result column="check_time_first" jdbcType="VARCHAR" property="checkTimeFirst" />
+    <result column="check_time_leave" jdbcType="VARCHAR" property="checkTimeLeave" />
+    <association property="emp" column="check_time_empid" javaType="com.office.entity.Employee" select="com.office.dao.EmployeeMapper.selectByPrimaryKey"></association>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -71,7 +80,7 @@
     check_time_id, check_time_data, check_time_empid, check_time_out, check_time_first, 
     check_time_leave
   </sql>
-  <select id="selectByExample" parameterType="com.office.entity.CheckTimeExample" resultMap="BaseResultMap">
+  <select id="selectByExample1" parameterType="com.office.entity.CheckTimeExample" resultMap="BaseResultMapE">
     select
     <if test="distinct">
       distinct
@@ -85,7 +94,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExamplePage" parameterType="com.office.entity.CheckTimeExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.office.entity.CheckTimeExample" resultMap="BaseResultMapE">
     select
     <if test="distinct">
       distinct

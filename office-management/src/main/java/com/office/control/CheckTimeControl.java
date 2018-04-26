@@ -1,9 +1,17 @@
 package com.office.control;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,13 +85,55 @@ public class CheckTimeControl {
 	
 	@RequestMapping("checkTimeAll.do")
 	@ResponseBody
-	public DataTables checkTimeAll(String time, int start, int length) {
-		List<CheckTime> searchCheckTimeByTime = ckService.searchCheckTimeByTime(time,start,length);
-		int searchCountAll = (int)ckService.searchCountAll(time);
+	public DataTables checkTimeAll(CheckTime ck, int start, int length) {
+		System.out.println(ck);
+		List<CheckTime> searchCheckTimeByTime = ckService.searchCheckTimeByCondition(ck,start,length);
+		int searchCountAll = (int)ckService.searchCountByCondition(ck);
 		DataTables dt = new DataTables();
 		dt.setData(searchCheckTimeByTime);
 		dt.setRecordsFiltered(searchCountAll);
 		dt.setRecordsTotal(searchCountAll);
 		return dt;
+	}
+	
+	@RequestMapping("exprotExcel.do")
+	@ResponseBody
+	public AjaxResult exportExcel(CheckTime ck,HttpServletResponse res) {
+		AjaxResult result =  new AjaxResult();
+		SimpleDateFormat dft = new SimpleDateFormat("yyyyMMddHHmm");
+		Date dt = new Date();
+		String address = "C:\\CheckTimeFile\\"+"CheckTime"+dft.format(dt)+".xls";
+		String fileName = "CheckTime"+dft.format(dt)+".xls";
+		List<CheckTime> list = ckService.searchCheckTimeByConditionAll(ck);
+		HSSFWorkbook excel = ckService.exportToExcel(list,res);
+		FileOutputStream fos;
+		try {
+			/**
+			 * 服务端保存文件
+			 */
+			fos= new FileOutputStream(address);
+			excel.write(fos);
+			excel.close();							
+			/**
+			 * 客户端
+			 */
+			res.setHeader("Content-disposition", "attachment;filename=" +
+			 new String(fileName.getBytes("gb2312"), "ISO8859-1"));
+            res.setContentType("application/vnd.ms-excel");
+            OutputStream outputStream = res.getOutputStream();
+            excel.write(outputStream);
+            outputStream.flush();
+            outputStream.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result.setMessage("文件生成失败,请重试");
+		} catch (IOException e) {
+			result.setMessage("文件生成失败,请重试");
+			e.printStackTrace();
+		}
+		System.out.println("导出成功");
+		result.setMessage("文件生成成功");
+		return result;
 	}
 }

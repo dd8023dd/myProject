@@ -13,7 +13,17 @@ public class CheckTime {
 
     private String checkTimeLeave;
 
-    public Integer getCheckTimeId() {
+    private Employee emp;
+    
+    public String getEmpName() {
+		return emp.getEmpName();
+	}
+
+	public void setEmp(Employee emp) {
+		this.emp = emp;
+	}
+
+	public Integer getCheckTimeId() {
         return checkTimeId;
     }
 
@@ -60,4 +70,11 @@ public class CheckTime {
     public void setCheckTimeLeave(String checkTimeLeave) {
         this.checkTimeLeave = checkTimeLeave == null ? null : checkTimeLeave.trim();
     }
+
+	@Override
+	public String toString() {
+		return "打卡签到表 [打卡日期=" + checkTimeData + ", 打卡员工=" + checkTimeEmpid + ", 打卡状态="
+				+ checkTimeOut + "]";
+	}
+    
 }

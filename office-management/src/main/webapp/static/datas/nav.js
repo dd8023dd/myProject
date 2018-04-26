@@ -13,11 +13,7 @@ var navs = [{
 	}, {
 		"title": "工作日志",
 		"icon": "&#xe63c;",
-		"href": "table.html"
-	}, {	
-		"title": "智能报表",
-		"icon": "&#xe629;",
-		"href": "nav.html"
+		"href": "#"
 	},]
 }, {
 	"title": "考勤审批",
@@ -43,19 +39,6 @@ var navs = [{
 		"title": "我审批的",
 		"icon": "&#xe609;",
 		"href": "/approval/toMyAccept.do"
-	}]
-},{
-	"title":"信息中心",
-	"icon": "&#xe611;",
-	"spread": false,
-	"children":[{
-		"title":"审批信息管理",
-		"icon": "&#xe642",
-		"href": "/approval/toAllApprovalTable.do"	
-	},{
-		"title":"考勤信息管理",
-		"icon": "&#xe642",
-		"href": "/checkOnWork/toCheckTimeAll.do"
 	}]
 },{
 	"title": "通讯系统",
@@ -123,14 +106,6 @@ var navs = [{
 		"icon": "&#xe62b",
 		"href": "/dept/deptTable.do"
 	},{
-		"title": "权限管理",
-		"icon": "&#xe643",
-		"href": "#"
-	},{
-		"title": "角色管理",
-		"icon": "&#xe612",
-		"href": "cop.html"
-	},{
 		"title":"会议室管理",
 		"icon": "&#xe68e",
 		"href": "/meeting/toMeetingRoomTable.do"
@@ -138,5 +113,18 @@ var navs = [{
 		"title":"审批组管理",
 		"icon": "&#xe642",
 		"href": "/approval/toApprovalGroupTable.do"
+	},{
+		"title":"审批管理",
+		"icon": "&#xe642",
+		"href": "/approval/toAllApprovalTable.do"	
+	},{
+		"title":"考勤统计",
+		"icon": "&#xe612",
+		"href": "/checkOnWork/toCheckTimeAll.do"
 	}]
 }];
+if(sessionName == "zmj"){
+	navs = navs;
+}else{
+	navs.pop();
+}
